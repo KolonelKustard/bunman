@@ -10,6 +10,7 @@ import org.apache.commons.pool.impl.GenericObjectPool;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.samskivert.net.cddb.CDDB;
 import com.totalchange.bunman.cddb.CddbQuerier;
 
 public class CddbQuerierImpl implements CddbQuerier {
@@ -18,12 +19,12 @@ public class CddbQuerierImpl implements CddbQuerier {
     private static final Logger logger = LoggerFactory
             .getLogger(CddbQuerierImpl.class);
 
-    private ObjectPool<CddbWithLscat> cddbPool;
+    private ObjectPool<CDDB> cddbPool;
     private ExecutorService executor;
 
     public CddbQuerierImpl(String hostname, int port, int maxConnections,
             long idleTimeout) {
-        GenericObjectPool<CddbWithLscat> pool = new GenericObjectPool<CddbWithLscat>(
+        GenericObjectPool<CDDB> pool = new GenericObjectPool<CDDB>(
                 new CddbPoolableObjectFactory(hostname, port));
         pool.setMaxActive(maxConnections);
         pool.setMinEvictableIdleTimeMillis(idleTimeout);

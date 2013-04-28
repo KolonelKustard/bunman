@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.apache.commons.pool.ObjectPool;
 
+import com.samskivert.net.cddb.CDDB;
 import com.samskivert.net.cddb.CDDBException;
 import com.samskivert.net.cddb.CDDB.Detail;
 import com.totalchange.bunman.cddb.CddbQuerier;
@@ -13,11 +14,11 @@ import com.totalchange.bunman.cddb.CddbQuerier.Listener;
 import com.totalchange.bunman.cddb.CddbResult;
 
 final class CddbRunnable implements Runnable {
-    private ObjectPool<CddbWithLscat> cddbPool;
+    private ObjectPool<CDDB> cddbPool;
     private String id;
     private CddbQuerier.Listener listener;
 
-    CddbRunnable(ObjectPool<CddbWithLscat> cddbPool, String id,
+    CddbRunnable(ObjectPool<CDDB> cddbPool, String id,
             Listener listener) {
         super();
         this.cddbPool = cddbPool;
@@ -28,9 +29,9 @@ final class CddbRunnable implements Runnable {
     public void run() {
         List<CddbResult> results = new ArrayList<CddbResult>();
         try {
-            CddbWithLscat cddb = cddbPool.borrowObject();
+            CDDB cddb = cddbPool.borrowObject();
             try {
-                List<String> categories = cddb.lscat();
+                String[] categories = cddb.lscat();
                 for (String category : categories) {
                     try {
                         Detail detail = cddb.read(category, id);

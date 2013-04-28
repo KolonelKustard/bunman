@@ -57,13 +57,6 @@
 			<version>3.0</version>
 		</dependency>
 		
-		<!-- Contains classes for querying CDDB -->
-		<dependency>
-			<groupId>com.samskivert</groupId>
-			<artifactId>samskivert</artifactId>
-			<version>1.7</version>
-		</dependency>
-		
 		<!-- For pooling CDDB connections -->
 		<dependency>
 			<groupId>commons-pool</groupId>
