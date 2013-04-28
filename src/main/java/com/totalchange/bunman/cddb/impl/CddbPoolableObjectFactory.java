@@ -2,9 +2,8 @@ package com.totalchange.bunman.cddb.impl;
 
 import org.apache.commons.pool.BasePoolableObjectFactory;
 
-import com.samskivert.net.cddb.CDDB;
-
-final class CddbPoolableObjectFactory extends BasePoolableObjectFactory<CDDB> {
+final class CddbPoolableObjectFactory extends
+        BasePoolableObjectFactory<CddbWithLscat> {
     private String hostname;
     private int port;
 
@@ -14,14 +13,14 @@ final class CddbPoolableObjectFactory extends BasePoolableObjectFactory<CDDB> {
     }
 
     @Override
-    public CDDB makeObject() throws Exception {
-        CDDB cddb = new CDDB();
+    public CddbWithLscat makeObject() throws Exception {
+        CddbWithLscat cddb = new CddbWithLscat();
         cddb.connect(hostname, port);
         return cddb;
     }
 
     @Override
-    public void destroyObject(CDDB cddb) throws Exception {
+    public void destroyObject(CddbWithLscat cddb) throws Exception {
         cddb.close();
     }
 }
