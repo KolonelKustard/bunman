@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-final class IdFile {
+final class IdFile implements AlbumData {
     private static final char ARTIST_ALBUM_SPLITTER = '/';
 
     private String artist;
@@ -67,23 +67,23 @@ final class IdFile {
         }
     }
 
-    String getArtist() {
+    public String getArtist() {
         return artist;
     }
 
-    String getAlbum() {
+    public String getAlbum() {
         return album;
     }
 
-    String getGenre() {
+    public String getGenre() {
         return genre;
     }
 
-    int getYear() {
+    public int getYear() {
         return year;
     }
 
-    List<String> getTracks() {
+    public List<String> getTracks() {
         return tracks;
     }
 }

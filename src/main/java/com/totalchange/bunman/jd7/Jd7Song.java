@@ -8,29 +8,22 @@ import java.io.InputStream;
 import com.totalchange.bunman.Song;
 
 final class Jd7Song implements Song {
-    private String artist;
-    private String album;
+    private AlbumData albumData;
     private String title;
-    private String genre;
-    private int year;
     private File file;
 
-    Jd7Song(String artist, String album, String title, String genre, int year,
-            File file) {
-        this.artist = artist;
-        this.album = album;
+    Jd7Song(AlbumData albumData, String title, File file) {
+        this.albumData = albumData;
         this.title = title;
-        this.genre = genre;
-        this.year = year;
         this.file = file;
     }
 
     public String getArtist() {
-        return artist;
+        return albumData.getArtist();
     }
 
     public String getAlbum() {
-        return album;
+        return albumData.getAlbum();
     }
 
     public String getTitle() {
@@ -38,11 +31,11 @@ final class Jd7Song implements Song {
     }
 
     public String getGenre() {
-        return genre;
+        return albumData.getGenre();
     }
 
     public int getYear() {
-        return year;
+        return albumData.getYear();
     }
 
     public InputStream getInputStream() throws IOException {

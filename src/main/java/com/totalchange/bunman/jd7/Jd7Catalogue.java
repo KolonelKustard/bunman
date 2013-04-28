@@ -48,9 +48,7 @@ public final class Jd7Catalogue implements Catalogue {
             for (String track : idf.getTracks()) {
                 File file = fileFinder.findTrackFile(track);
                 if (file != null) {
-                    listener.yetAnotherSong(new Jd7Song(idf.getArtist(), idf
-                            .getAlbum(), track, idf.getGenre(), idf.getYear(),
-                            file));
+                    listener.yetAnotherSong(new Jd7Song(idf, track, file));
                 } else {
                     listener.skippedSomething("Couldn't find a file for "
                             + "track '" + track + "' from album '"
