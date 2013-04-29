@@ -22,6 +22,14 @@ final class CddbResultImpl implements CddbResult {
         return detail.title;
     }
 
+    public int getYear() {
+        return detail.year;
+    }
+
+    public String getGenre() {
+        return detail.genre;
+    }
+
     public String[] getTrackNames() {
         return detail.trackNames;
     }

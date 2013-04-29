@@ -10,7 +10,6 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.net.SocketException;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * The CDDB class provides access to the information provided by servers compliant with the
@@ -244,7 +243,7 @@ public class CDDB
             throw new CDDBException(rsp.code, rsp.message);
         }
 
-        List<String> list = new ArrayList<String>();
+        ArrayList<String> list = new ArrayList<String>();
         String input;
         while (!(input = _in.readLine()).equals(CDDBProtocol.TERMINATOR)) {
             list.add(input);
@@ -331,7 +330,7 @@ public class CDDB
         public String title;
 
         /** The year the CD was published (or -1 if not known). */
-        public int year;
+        public int year = -1;
 
         /** The genre of this CD. */
         public String genre;
