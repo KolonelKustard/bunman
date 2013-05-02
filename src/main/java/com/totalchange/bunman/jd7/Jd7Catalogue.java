@@ -39,56 +39,38 @@ public final class Jd7Catalogue implements Catalogue {
         }
     }
 
+    private void processAlbumData(CatalogueSongListener listener,
+            AlbumData album, File dir, File... ignored) {
+        Jd7FileFinder fileFinder = new Jd7FileFinder(dir.listFiles(), ignored);
+        for (String track : album.getTracks()) {
+            File file = fileFinder.findTrackFile(track);
+            if (file != null) {
+                listener.yetAnotherSong(new Jd7Song(album, track, file));
+            } else {
+                // TODO: Internationalise
+                listener.skippedSomething("Couldn't find a file for "
+                        + "track '" + track + "' from album '"
+                        + album.getAlbum() + "' by artist '"
+                        + album.getArtist() + "' in directory "
+                        + dir.getAbsolutePath());
+            }
+        }
+    }
+
     private void processIdDir(File dir, File idFile,
             CatalogueSongListener listener) {
         try {
             IdFile idf = new IdFile(idFile);
-            Jd7FileFinder fileFinder = new Jd7FileFinder(dir.listFiles(),
-                    idFile);
-            for (String track : idf.getTracks()) {
-                File file = fileFinder.findTrackFile(track);
-                if (file != null) {
-                    listener.yetAnotherSong(new Jd7Song(idf, track, file));
-                } else {
-                    listener.skippedSomething("Couldn't find a file for "
-                            + "track '" + track + "' from album '"
-                            + idf.getAlbum() + "' by artist '"
-                            + idf.getArtist() + "' in directory "
-                            + dir.getCanonicalPath());
-                }
-            }
+            processAlbumData(listener, idf, dir, idFile);
         } catch (IOException ioEx) {
             listener.skippedSomething("Couldn''t read ID file " + idFile + ": "
                     + ioEx.getLocalizedMessage());
         }
     }
 
-    private void processIdnDir(File dir, File idFile,
+    private void processIdnDir(File dir, File idnFile,
             CatalogueSongListener listener) {
         // TODO: Write me
-    }
-
-    private void rebuildNonIdDir(File dir) throws IOException {
-        String[] artistAndAlbumBits = dir.getName().split("  ");
-        String artist = artistAndAlbumBits[0].trim();
-
-        String album = "";
-        if (artistAndAlbumBits.length > 1) {
-            album = artistAndAlbumBits[1].trim();
-        }
-
-        for (File file : dir.listFiles()) {
-            if (file.getName().endsWith(".mp3")) {
-                String title = file.getName().substring(0,
-                        file.getName().length() - 4);
-
-                try {
-                    tagFile(dir, artist, album, "", "", title, 0);
-                } catch (Throwable th) {
-                    throw new IOException(th);
-                }
-            }
-        }
     }
 
     private File root;

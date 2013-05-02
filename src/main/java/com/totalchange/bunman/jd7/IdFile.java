@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 final class IdFile implements AlbumData {
-    private static final char ARTIST_ALBUM_SPLITTER = '/';
+    private static final String ARTIST_ALBUM_SPLITTER = "/";
 
     private String artist;
     private String album;
@@ -21,24 +21,10 @@ final class IdFile implements AlbumData {
     }
 
     private void splitArtistAlbumBits(String artistAlbumBits) {
-        if (artistAlbumBits == null || artistAlbumBits.length() <= 0) {
-            this.artist = null;
-            this.album = null;
-        }
-
-        int splitter = artistAlbumBits.indexOf(ARTIST_ALBUM_SPLITTER);
-        if (splitter > -1) {
-            this.artist = artistAlbumBits.substring(0, splitter).trim();
-            if (splitter < (artistAlbumBits.length() - 1)) {
-                this.album = artistAlbumBits.substring(splitter + 1,
-                        artistAlbumBits.length() - 1).trim();
-            } else {
-                this.album = null;
-            }
-        } else {
-            this.artist = artistAlbumBits.trim();
-            this.album = null;
-        }
+        String[] split = Jd7Utils.splitArtistAlbumBits(artistAlbumBits,
+                ARTIST_ALBUM_SPLITTER);
+        this.artist = split[0];
+        this.album = split[1];
     }
 
     private void readIdFile(File idFile) throws IOException {

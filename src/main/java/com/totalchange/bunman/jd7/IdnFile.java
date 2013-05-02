@@ -1,33 +1,50 @@
 package com.totalchange.bunman.jd7;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
+import com.totalchange.bunman.cddb.CddbResult;
+
 final class IdnFile implements AlbumData, Serializable {
+    private static final long serialVersionUID = 3817575634261453776L;
+
+    private static final String ARTIST_ALBUM_SPLITTER = "/";
+
+    private String artist;
+    private String album;
+    private String genre;
+    private int year;
+    private List<String> tracks;
+
+    IdnFile(CddbResult cddb) {
+        String[] split = Jd7Utils.splitArtistAlbumBits(cddb.getTitle(),
+                ARTIST_ALBUM_SPLITTER);
+        this.artist = split[0];
+        this.album = split[1];
+        this.genre = cddb.getGenre();
+        this.year = cddb.getYear();
+        this.tracks = new ArrayList<String>(Arrays.asList(cddb.getTrackNames()));
+    }
 
     public String getArtist() {
-        // TODO Auto-generated method stub
-        return null;
+        return artist;
     }
 
     public String getAlbum() {
-        // TODO Auto-generated method stub
-        return null;
+        return album;
     }
 
     public String getGenre() {
-        // TODO Auto-generated method stub
-        return null;
+        return genre;
     }
 
     public int getYear() {
-        // TODO Auto-generated method stub
-        return 0;
+        return year;
     }
 
     public List<String> getTracks() {
-        // TODO Auto-generated method stub
-        return null;
+        return tracks;
     }
-
 }

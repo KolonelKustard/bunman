@@ -37,24 +37,8 @@ final class Jd7FileFinder {
             if (Arrays.binarySearch(ignored, file) < 0) {
                 logger.trace("Not ignoring file {}", file);
                 this.files.add(file);
-                this.fileNames.add(removeExtension(file.getName()));
+                this.fileNames.add(Jd7Utils.removeExtension(file.getName()));
             }
-        }
-    }
-
-    private String removeExtension(String fileName) {
-        logger.trace("Stripping extension from filename {}", fileName);
-
-        int ext = fileName.lastIndexOf('.');
-        if (ext > 0 && (fileName.length() - ext) <= 5) {
-            // It's intentionally > 0 as I'm not considering it an extension if
-            // the filename has no name part. Also it's not considered an
-            // extension if it's more than 4 characters long.
-            logger.trace("Removing from index point {} onward", ext);
-            return fileName.substring(0, ext);
-        } else {
-            logger.trace("No extension to strip");
-            return fileName;
         }
     }
 
