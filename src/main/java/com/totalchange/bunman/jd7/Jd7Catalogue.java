@@ -1,42 +1,21 @@
 package com.totalchange.bunman.jd7;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import org.jaudiotagger.audio.AudioFileIO;
-import org.jaudiotagger.audio.exceptions.CannotReadException;
-import org.jaudiotagger.audio.exceptions.CannotWriteException;
-import org.jaudiotagger.audio.exceptions.InvalidAudioFrameException;
-import org.jaudiotagger.audio.exceptions.ReadOnlyFileException;
-import org.jaudiotagger.audio.mp3.MP3File;
-import org.jaudiotagger.tag.FieldKey;
-import org.jaudiotagger.tag.Tag;
-import org.jaudiotagger.tag.TagException;
+import javax.inject.Inject;
 
 import com.totalchange.bunman.Catalogue;
 import com.totalchange.bunman.CatalogueSongListener;
 
 public final class Jd7Catalogue implements Catalogue {
-    private void tagFile(File dir, String artist, String album, String genre,
-            String year, String track, int trackNum) throws IOException,
-            InvalidAudioFrameException, CannotReadException, TagException,
-            ReadOnlyFileException, CannotWriteException {
-        try {
-            File songFile = null;
-            MP3File f = (MP3File) AudioFileIO.read(songFile);
+    private IdnFileFactory idnFileFactory;
+    private File root;
 
-            Tag tag = f.getTagOrCreateAndSetDefault();
-            tag.setField(FieldKey.ARTIST, artist);
-            tag.setField(FieldKey.ALBUM, album);
-            tag.setField(FieldKey.GENRE, genre);
-            tag.setField(FieldKey.YEAR, year);
-            tag.setField(FieldKey.TITLE, track);
-            tag.setField(FieldKey.TRACK, String.valueOf(trackNum));
-
-            f.commit();
-        } catch (FileNotFoundException fnfEx) {
-        }
+    @Inject
+    public Jd7Catalogue(IdnFileFactory idnFileFactory, File root) {
+        this.idnFileFactory = idnFileFactory;
+        this.root = root;
     }
 
     private void processAlbumData(CatalogueSongListener listener,
@@ -68,12 +47,27 @@ public final class Jd7Catalogue implements Catalogue {
         }
     }
 
-    private void processIdnDir(File dir, File idnFile,
-            CatalogueSongListener listener) {
-        // TODO: Write me
+    private void processIdnFile(File idnFile, CatalogueSongListener listener) {
+        try {
+            idnFileFactory.processIdnFile(idnFile);
+        } catch (IOException ioEx) {
+            listener.skippedSomething("Couldn''t read IDN file " + idnFile
+                    + ": " + ioEx.getLocalizedMessage());
+        }
     }
 
-    private File root;
+    private void processIdnResults(CatalogueSongListener listener) {
+        IdnFile album;
+        while ((album = idnFileFactory.getNextAlbum()) != null) {
+            processAlbumData(listener, album, album.getIdnFile()
+                    .getParentFile(), album.getIdnFile());
+        }
+
+        String problem;
+        while ((problem = idnFileFactory.getNextProblem()) != null) {
+            listener.skippedSomething(problem);
+        }
+    }
 
     private void recurseForIdFiles(File dir, CatalogueSongListener listener) {
         File idFile = new File(dir, "id");
@@ -82,9 +76,11 @@ public final class Jd7Catalogue implements Catalogue {
         } else {
             File idnFile = new File(dir, "idn");
             if (idnFile.exists()) {
-                processIdnDir(dir, idnFile, listener);
+                processIdnFile(idnFile, listener);
             }
         }
+
+        processIdnResults(listener);
 
         for (File subDir : dir.listFiles()) {
             if (subDir.isDirectory()) {
@@ -95,5 +91,9 @@ public final class Jd7Catalogue implements Catalogue {
 
     public void listAllSongs(CatalogueSongListener listener) {
         recurseForIdFiles(root, listener);
+
+        // Wait for IDN factory to finish any background processing
+        idnFileFactory.waitUntilFinished();
+        processIdnResults(listener);
     }
 }

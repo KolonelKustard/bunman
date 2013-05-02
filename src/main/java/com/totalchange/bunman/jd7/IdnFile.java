@@ -1,5 +1,6 @@
 package com.totalchange.bunman.jd7;
 
+import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -12,13 +13,17 @@ final class IdnFile implements AlbumData, Serializable {
 
     private static final String ARTIST_ALBUM_SPLITTER = "/";
 
+    private transient File idnFile;
+
     private String artist;
     private String album;
     private String genre;
     private int year;
     private List<String> tracks;
 
-    IdnFile(CddbResult cddb) {
+    IdnFile(File idnFile, CddbResult cddb) {
+        this.idnFile = idnFile;
+
         String[] split = Jd7Utils.splitArtistAlbumBits(cddb.getTitle(),
                 ARTIST_ALBUM_SPLITTER);
         this.artist = split[0];
@@ -26,6 +31,14 @@ final class IdnFile implements AlbumData, Serializable {
         this.genre = cddb.getGenre();
         this.year = cddb.getYear();
         this.tracks = new ArrayList<String>(Arrays.asList(cddb.getTrackNames()));
+    }
+
+    File getIdnFile() {
+        return idnFile;
+    }
+
+    void setIdnFile(File idnFile) {
+        this.idnFile = idnFile;
     }
 
     public String getArtist() {

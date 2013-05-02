@@ -25,7 +25,7 @@ final class IdnFileFactory {
     private static final Logger logger = LoggerFactory
             .getLogger(IdnFileFactory.class);
 
-    private Queue<AlbumData> queue = new LinkedList<AlbumData>();
+    private Queue<IdnFile> queue = new LinkedList<IdnFile>();
     private Queue<String> problems = new LinkedList<String>();
     private IdnFileCache cache;
     private CddbQuerier querier;
@@ -80,7 +80,8 @@ final class IdnFileFactory {
         return true;
     }
 
-    void processQueryResults(File file, String id, List<CddbResult> results) {
+    private void processQueryResults(File file, String id,
+            List<CddbResult> results) {
         if (logger.isTraceEnabled()) {
             logger.trace("Got CDDB results for file " + file + ", id " + id
                     + ": " + results);
@@ -97,7 +98,8 @@ final class IdnFileFactory {
 
         if (results.size() == 1) {
             logger.trace("Only one result, adding it to the queue");
-            addItemToQueueAndCacheIt(file, id, new IdnFile(results.get(0)));
+            addItemToQueueAndCacheIt(file, id,
+                    new IdnFile(file, results.get(0)));
             return;
         }
 
@@ -118,7 +120,8 @@ final class IdnFileFactory {
         if (matches.size() >= 1) {
             logger.trace("Found a match for {}: {}", (Object[]) dirSplit,
                     matches);
-            addItemToQueueAndCacheIt(file, id, new IdnFile(matches.get(0)));
+            addItemToQueueAndCacheIt(file, id,
+                    new IdnFile(file, matches.get(0)));
             return;
         }
 
@@ -145,6 +148,7 @@ final class IdnFileFactory {
                 .getName());
         if (idnf != null) {
             logger.trace("Got result {} from cache", idnf);
+            idnf.setIdnFile(file);
             synchronized (queue) {
                 queue.offer(idnf);
             }
@@ -164,7 +168,7 @@ final class IdnFileFactory {
         });
     }
 
-    AlbumData getNextAlbum() {
+    IdnFile getNextAlbum() {
         logger.trace("Polling for next album");
         synchronized (queue) {
             return queue.poll();
