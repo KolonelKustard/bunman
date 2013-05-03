@@ -2,7 +2,7 @@ package com.totalchange.bunman.jd7;
 
 import java.util.List;
 
-interface AlbumData {
+interface Album {
     String getArtist();
     String getAlbum();
     String getGenre();

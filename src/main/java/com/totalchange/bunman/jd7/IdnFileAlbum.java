@@ -8,7 +8,7 @@ import java.util.List;
 
 import com.totalchange.bunman.cddb.CddbResult;
 
-final class IdnFile implements AlbumData, Serializable {
+final class IdnFileAlbum implements Album, Serializable {
     private static final long serialVersionUID = 3817575634261453776L;
 
     private static final String ARTIST_ALBUM_SPLITTER = "/";
@@ -21,7 +21,7 @@ final class IdnFile implements AlbumData, Serializable {
     private int year;
     private List<String> tracks;
 
-    IdnFile(File idnFile, CddbResult cddb) {
+    IdnFileAlbum(File idnFile, CddbResult cddb) {
         this.idnFile = idnFile;
 
         String[] split = Jd7Utils.splitArtistAlbumBits(cddb.getTitle(),

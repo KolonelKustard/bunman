@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-final class IdFile implements AlbumData {
+final class IdFileAlbum implements Album {
     private static final String ARTIST_ALBUM_SPLITTER = "/";
 
     private String artist;
@@ -16,7 +16,7 @@ final class IdFile implements AlbumData {
     private int year;
     private List<String> tracks;
 
-    IdFile(File idFile) throws IOException {
+    IdFileAlbum(File idFile) throws IOException {
         readIdFile(idFile);
     }
 

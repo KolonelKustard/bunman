@@ -2,7 +2,7 @@ package com.totalchange.bunman.jd7;
 
 import java.io.Serializable;
 
-final class IdnFileCache {
+final class IdnFileAlbumCache {
     private static final class IdnFileKey implements Serializable {
         private String id;
         private String directoryName;
@@ -52,12 +52,12 @@ final class IdnFileCache {
         }
     }
 
-    void putFileIntoCache(String id, String directoryName, IdnFile file) {
+    void putFileIntoCache(String id, String directoryName, IdnFileAlbum file) {
         // TODO: Write me
         IdnFileKey key = new IdnFileKey(id, directoryName);
     }
 
-    IdnFile getFileFromCache(String id, String directoryName) {
+    IdnFileAlbum getFileFromCache(String id, String directoryName) {
         // TODO: Write me
         IdnFileKey key = new IdnFileKey(id, directoryName);
         return null;

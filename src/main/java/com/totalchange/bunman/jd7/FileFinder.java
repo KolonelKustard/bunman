@@ -18,14 +18,14 @@ import org.slf4j.LoggerFactory;
  * 
  * @author kolonel
  */
-final class Jd7FileFinder {
+final class FileFinder {
     private static final Logger logger = LoggerFactory
-            .getLogger(Jd7FileFinder.class);
+            .getLogger(FileFinder.class);
 
     private List<File> files;
     private List<String> fileNames;
 
-    Jd7FileFinder(File[] files, File... ignored) {
+    FileFinder(File[] files, File... ignored) {
         logger.trace("Creating new file finder for files {} whilst "
                 + "ignoring {}", files, ignored);
 

@@ -9,18 +9,18 @@ import com.totalchange.bunman.Catalogue;
 import com.totalchange.bunman.CatalogueSongListener;
 
 public final class Jd7Catalogue implements Catalogue {
-    private IdnFileFactory idnFileFactory;
+    private AlbumFactory idnFileFactory;
     private File root;
 
     @Inject
-    public Jd7Catalogue(IdnFileFactory idnFileFactory, File root) {
+    public Jd7Catalogue(AlbumFactory idnFileFactory, File root) {
         this.idnFileFactory = idnFileFactory;
         this.root = root;
     }
 
     private void processAlbumData(CatalogueSongListener listener,
-            AlbumData album, File dir, File... ignored) {
-        Jd7FileFinder fileFinder = new Jd7FileFinder(dir.listFiles(), ignored);
+            Album album, File dir, File... ignored) {
+        FileFinder fileFinder = new FileFinder(dir.listFiles(), ignored);
         for (String track : album.getTracks()) {
             File file = fileFinder.findTrackFile(track);
             if (file != null) {
@@ -39,7 +39,7 @@ public final class Jd7Catalogue implements Catalogue {
     private void processIdDir(File dir, File idFile,
             CatalogueSongListener listener) {
         try {
-            IdFile idf = new IdFile(idFile);
+            IdFileAlbum idf = new IdFileAlbum(idFile);
             processAlbumData(listener, idf, dir, idFile);
         } catch (IOException ioEx) {
             listener.skippedSomething("Couldn''t read ID file " + idFile + ": "
@@ -57,7 +57,7 @@ public final class Jd7Catalogue implements Catalogue {
     }
 
     private void processIdnResults(CatalogueSongListener listener) {
-        IdnFile album;
+        IdnFileAlbum album;
         while ((album = idnFileFactory.getNextAlbum()) != null) {
             processAlbumData(listener, album, album.getIdnFile()
                     .getParentFile(), album.getIdnFile());

@@ -6,7 +6,7 @@ import java.io.File;
 
 import org.junit.Test;
 
-public class Jd7FileFinderTests {
+public class FileFinderTests {
     @Test
     public void testFindTrackFile() {
         File file1 = new File("test track 1.mp3");
@@ -14,7 +14,7 @@ public class Jd7FileFinderTests {
         File file3 = new File("test track 3.mpeg");
         File file4 = new File("test track 4.mpg");
 
-        Jd7FileFinder ff = new Jd7FileFinder(new File[] { file1, file2, file3,
+        FileFinder ff = new FileFinder(new File[] { file1, file2, file3,
                 file4 }, file4);
 
         assertEquals(file1, ff.findTrackFile("test track 1"));
@@ -31,14 +31,14 @@ public class Jd7FileFinderTests {
     @Test
     public void testJustExtension() {
         File testFile = new File(".mp3");
-        Jd7FileFinder ff = new Jd7FileFinder(new File[] { testFile });
+        FileFinder ff = new FileFinder(new File[] { testFile });
         assertEquals(".mp3", ff.findTrackFile(".mp3").getName());
     }
 
     @Test
     public void testLongExtension() {
         File testFile = new File("not.an.exte.nsion");
-        Jd7FileFinder ff = new Jd7FileFinder(new File[] { testFile });
+        FileFinder ff = new FileFinder(new File[] { testFile });
         assertEquals("not.an.exte.nsion", ff.findTrackFile("not.an.exte.nsion")
                 .getName());
     }

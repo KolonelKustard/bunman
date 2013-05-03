@@ -8,11 +8,11 @@ import java.io.InputStream;
 import com.totalchange.bunman.Song;
 
 final class Jd7Song implements Song {
-    private AlbumData albumData;
+    private Album albumData;
     private String title;
     private File file;
 
-    Jd7Song(AlbumData albumData, String title, File file) {
+    Jd7Song(Album albumData, String title, File file) {
         this.albumData = albumData;
         this.title = title;
         this.file = file;

@@ -17,21 +17,21 @@ import org.slf4j.LoggerFactory;
 import com.totalchange.bunman.cddb.CddbQuerier;
 import com.totalchange.bunman.cddb.CddbResult;
 
-final class IdnFileFactory {
+final class AlbumFactory {
     private static final String CDDB_DATA_CATEGORY = "data";
     private static final String SPLITTER_CDDB = "/";
     private static final String SPLITTER_DIRNAME = "  ";
 
     private static final Logger logger = LoggerFactory
-            .getLogger(IdnFileFactory.class);
+            .getLogger(AlbumFactory.class);
 
-    private Queue<IdnFile> queue = new LinkedList<IdnFile>();
+    private Queue<IdnFileAlbum> queue = new LinkedList<IdnFileAlbum>();
     private Queue<String> problems = new LinkedList<String>();
-    private IdnFileCache cache;
+    private IdnFileAlbumCache cache;
     private CddbQuerier querier;
 
     @Inject
-    public IdnFileFactory(IdnFileCache cache, CddbQuerier querier) {
+    public AlbumFactory(IdnFileAlbumCache cache, CddbQuerier querier) {
         this.cache = cache;
         this.querier = querier;
     }
@@ -59,7 +59,7 @@ final class IdnFileFactory {
         }
     }
 
-    private void addItemToQueueAndCacheIt(File file, String id, IdnFile idnf) {
+    private void addItemToQueueAndCacheIt(File file, String id, IdnFileAlbum idnf) {
         synchronized (queue) {
             queue.offer(idnf);
         }
@@ -99,7 +99,7 @@ final class IdnFileFactory {
         if (results.size() == 1) {
             logger.trace("Only one result, adding it to the queue");
             addItemToQueueAndCacheIt(file, id,
-                    new IdnFile(file, results.get(0)));
+                    new IdnFileAlbum(file, results.get(0)));
             return;
         }
 
@@ -121,7 +121,7 @@ final class IdnFileFactory {
             logger.trace("Found a match for {}: {}", (Object[]) dirSplit,
                     matches);
             addItemToQueueAndCacheIt(file, id,
-                    new IdnFile(file, matches.get(0)));
+                    new IdnFileAlbum(file, matches.get(0)));
             return;
         }
 
@@ -144,7 +144,7 @@ final class IdnFileFactory {
         }
 
         logger.trace("Looking up from cache based on id {}", id);
-        IdnFile idnf = cache.getFileFromCache(id, file.getParentFile()
+        IdnFileAlbum idnf = cache.getFileFromCache(id, file.getParentFile()
                 .getName());
         if (idnf != null) {
             logger.trace("Got result {} from cache", idnf);
@@ -168,7 +168,7 @@ final class IdnFileFactory {
         });
     }
 
-    IdnFile getNextAlbum() {
+    IdnFileAlbum getNextAlbum() {
         logger.trace("Polling for next album");
         synchronized (queue) {
             return queue.poll();

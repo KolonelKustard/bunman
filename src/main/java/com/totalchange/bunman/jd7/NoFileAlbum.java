@@ -4,14 +4,14 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-final class NoFile implements AlbumData {
+final class NoFileAlbum implements Album {
     private static final String SPLITTER_DIRNAME = "  ";
 
     private String artist;
     private String album;
     private List<String> tracks;
 
-    NoFile(File dir) {
+    NoFileAlbum(File dir) {
         String[] split = Jd7Utils.splitArtistAlbumBits(dir.getName(),
                 SPLITTER_DIRNAME);
         artist = split[0];

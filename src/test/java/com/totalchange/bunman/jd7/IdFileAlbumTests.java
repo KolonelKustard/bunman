@@ -9,10 +9,10 @@ import java.util.List;
 
 import org.junit.Test;
 
-public class IdFileTests {
+public class IdFileAlbumTests {
     @Test
     public void testIdFile() throws IOException {
-        IdFile idf = new IdFile(new File(
+        IdFileAlbum idf = new IdFileAlbum(new File(
                 "src/test/jd7/idtests/10cc   The Very Best Of 10cc/id"));
         assertEquals("10cc", idf.getArtist());
         assertEquals("The Very Best Of 10cc", idf.getAlbum());
