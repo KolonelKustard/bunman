@@ -26,7 +26,7 @@ final class Jd7Utils {
             if (splitter < (artistAlbumBits.length() - 1)) {
                 split[1] = artistAlbumBits.substring(
                         splitter + splitOnMe.length(),
-                        artistAlbumBits.length() - 1).trim();
+                        artistAlbumBits.length()).trim();
             } else {
                 split[1] = "";
             }

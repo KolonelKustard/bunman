@@ -5,15 +5,17 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import com.totalchange.bunman.Song;
+import com.totalchange.bunman.util.AbstractSong;
 
-final class Jd7Song implements Song {
+final class Jd7Song extends AbstractSong {
     private Album albumData;
+    private int track;
     private String title;
     private File file;
 
-    Jd7Song(Album albumData, String title, File file) {
+    Jd7Song(Album albumData, int track, String title, File file) {
         this.albumData = albumData;
+        this.track = track;
         this.title = title;
         this.file = file;
     }
@@ -38,7 +40,16 @@ final class Jd7Song implements Song {
         return albumData.getYear();
     }
 
+    public int getTrack() {
+        return track;
+    }
+
     public InputStream getInputStream() throws IOException {
         return new FileInputStream(file);
+    }
+
+    @Override
+    public String toString() {
+        return "Jd7Song [" + super.toString() + ", file=" + file + "]";
     }
 }
