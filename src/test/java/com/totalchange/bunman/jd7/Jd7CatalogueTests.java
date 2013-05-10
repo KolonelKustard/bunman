@@ -13,7 +13,6 @@ import java.util.List;
 
 import org.easymock.EasyMockSupport;
 import org.easymock.IAnswer;
-import org.junit.Before;
 import org.junit.Test;
 
 import com.totalchange.bunman.Catalogue;
@@ -43,7 +42,7 @@ public class Jd7CatalogueTests extends EasyMockSupport {
             }
 
             public int getYear() {
-                return 2003;
+                return 2011;
             }
 
             public int getTrack() {
@@ -325,7 +324,7 @@ public class Jd7CatalogueTests extends EasyMockSupport {
         expectedSongs.add(make10ccSong(5, "Silly Love"));
         expectedSongs.add(make10ccSong(6, "Life Is A Minestrone"));
         expectedSongs.add(make10ccSong(7, "Une Nuit A Paris, Pt. 1: One "
-                + "Night In Paris\\Pt. 2: The Same N"));
+                + "Night In Paris\\\\Pt. 2: The Same N"));
         expectedSongs.add(make10ccSong(8, "I'm Not In Love"));
         expectedSongs.add(make10ccSong(9, "Art For Art's Sake"));
         expectedSongs.add(make10ccSong(10, "I'm Mandy, Fly Me"));
@@ -353,6 +352,9 @@ public class Jd7CatalogueTests extends EasyMockSupport {
         Collections.sort(songs);
 
         assertEquals(new ArrayList<String>(), skipped);
-        assertEquals(expectedSongs, songs);
+        assertEquals(expectedSongs.size(), songs.size());
+        for (int num = 0; num < expectedSongs.size(); num++) {
+            assertEquals("Song " + num, expectedSongs.get(num), songs.get(num));
+        }
     }
 }
