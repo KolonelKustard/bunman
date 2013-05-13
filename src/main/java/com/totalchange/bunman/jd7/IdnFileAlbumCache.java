@@ -1,9 +1,21 @@
 package com.totalchange.bunman.jd7;
 
+import java.io.Closeable;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.Serializable;
+import java.util.Map;
 
-class IdnFileAlbumCache {
+import org.mapdb.DB;
+import org.mapdb.DBMaker;
+
+public class IdnFileAlbumCache implements Closeable {
+    private static final String CACHE_FILENAME = "IdnFileAlbumCache.bin";
+
     private static final class IdnFileKey implements Serializable {
+        private static final long serialVersionUID = -5572602102338232684L;
+
         private String id;
         private String directoryName;
 
@@ -52,14 +64,36 @@ class IdnFileAlbumCache {
         }
     }
 
+    private DB db;
+    private Map<IdnFileKey, IdnFileAlbum> map;
+
+    public IdnFileAlbumCache(File cacheDir) throws IOException {
+        if (!cacheDir.exists()) {
+            throw new FileNotFoundException("Cache directory " + cacheDir
+                    + " not found");
+        }
+
+        if (!cacheDir.isDirectory()) {
+            throw new IOException("Cache directory " + cacheDir
+                    + " is not a directory");
+        }
+
+        db = DBMaker.newFileDB(new File(cacheDir, CACHE_FILENAME)).make();
+        map = db.getTreeMap(CACHE_FILENAME);
+    }
+
     void putFileIntoCache(String id, String directoryName, IdnFileAlbum file) {
-        // TODO: Write me
         IdnFileKey key = new IdnFileKey(id, directoryName);
+        map.put(key, file);
+        db.commit();
     }
 
     IdnFileAlbum getFileFromCache(String id, String directoryName) {
-        // TODO: Write me
         IdnFileKey key = new IdnFileKey(id, directoryName);
-        return null;
+        return map.get(key);
+    }
+
+    public void close() throws IOException {
+        db.close();
     }
 }
