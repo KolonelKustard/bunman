@@ -156,9 +156,13 @@ public final class Jd7Catalogue implements Catalogue {
 
         // Bums
         // TODO: sort out a way of flagging multiple possibilities to the user
+        // TODO: Internationalise
         listener.skippedSomething("Couldn't find any suitable CDDB info "
                 + "for id " + id + " in directory " + file.getParent()
-                + " out of possible matches " + results);
+                + " out of possible matches " + results
+                + ". Fallen back to file names.");
+        processAlbumData(listener, new NoFileAlbum(file.getParentFile()),
+                file.getParentFile(), file);
     }
 
     private void processIdnFile(final File file,
