@@ -7,8 +7,8 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.Map;
 
-import org.mapdb.DB;
-import org.mapdb.DBMaker;
+import jdbm.RecordManager;
+import jdbm.RecordManagerFactory;
 
 public class IdnFileAlbumCache implements Closeable {
     private static final String CACHE_FILENAME = "IdnFileAlbumCache.bin";
@@ -64,7 +64,7 @@ public class IdnFileAlbumCache implements Closeable {
         }
     }
 
-    private DB db;
+    private RecordManager db;
     private Map<IdnFileKey, IdnFileAlbum> map;
 
     public IdnFileAlbumCache(File cacheDir) throws IOException {
@@ -78,14 +78,19 @@ public class IdnFileAlbumCache implements Closeable {
                     + " is not a directory");
         }
 
-        db = DBMaker.newFileDB(new File(cacheDir, CACHE_FILENAME)).make();
-        map = db.getTreeMap(CACHE_FILENAME);
+        db = RecordManagerFactory.createRecordManager(new File(cacheDir,
+                CACHE_FILENAME).getCanonicalPath());
+        map = db.hashMap(CACHE_FILENAME);
     }
 
     void putFileIntoCache(String id, String directoryName, IdnFileAlbum file) {
         IdnFileKey key = new IdnFileKey(id, directoryName);
         map.put(key, file);
-        db.commit();
+        try {
+            db.commit();
+        } catch (IOException ioEx) {
+            throw new RuntimeException(ioEx);
+        }
     }
 
     IdnFileAlbum getFileFromCache(String id, String directoryName) {

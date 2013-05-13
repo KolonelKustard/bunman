@@ -12,9 +12,14 @@ import com.totalchange.bunman.cddb.CddbResult;
 public class IdnFileAlbumCacheTests {
     @Test
     public void testPutFileIntoCache() throws IOException {
-        File tmpDir = new File("target/test/IdnFileAlbumCacheTests");
+        File tmpDir = new File("target/IdnFileAlbumCacheTests");
+        if (tmpDir.exists()) {
+            for (File contents : tmpDir.listFiles()) {
+                contents.delete();
+            }
+            tmpDir.delete();
+        }
         tmpDir.mkdirs();
-        tmpDir.deleteOnExit();
 
         IdnFileAlbum test1 = new IdnFileAlbum(new File("test1"),
                 new CddbResult() {
@@ -53,7 +58,8 @@ public class IdnFileAlbumCacheTests {
 
         IdnFileAlbumCache cache = new IdnFileAlbumCache(tmpDir);
 
-        assertNull("Not in cache yet", cache.getFileFromCache("test1", "test1"));
+        assertNull("Shouldn't be cached yet",
+                cache.getFileFromCache("test1", "test1"));
         cache.putFileIntoCache("test1", "test1", test1);
 
         IdnFileAlbum result1 = cache.getFileFromCache("test1", "test1");
@@ -67,10 +73,5 @@ public class IdnFileAlbumCacheTests {
         assertEquals("test1", result1.getArtist());
 
         cache.close();
-
-        for (File contents : tmpDir.listFiles()) {
-            contents.delete();
-        }
-        tmpDir.delete();
     }
 }
