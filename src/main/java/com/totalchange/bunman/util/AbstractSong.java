@@ -11,7 +11,7 @@ public abstract class AbstractSong implements Song, Comparable<Song> {
 
     protected Format workOutFormat(File file) {
         for (Format format : Format.values()) {
-            if (file.getName().endsWith(format.getExtension())) {
+            if (file.getName().endsWith("." + format.getExtension())) {
                 return format;
             }
         }
