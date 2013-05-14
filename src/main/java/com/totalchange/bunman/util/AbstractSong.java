@@ -1,5 +1,7 @@
 package com.totalchange.bunman.util;
 
+import java.io.File;
+
 import com.totalchange.bunman.Song;
 
 public abstract class AbstractSong implements Song, Comparable<Song> {
@@ -7,17 +9,28 @@ public abstract class AbstractSong implements Song, Comparable<Song> {
         return SongComparator.staticCompare(this, o);
     }
 
+    protected Format workOutFormat(File file) {
+        for (Format format : Format.values()) {
+            if (file.getName().endsWith(format.getExtension())) {
+                return format;
+            }
+        }
+        return null;
+    }
+
     @Override
     public String toString() {
-        return "artist=" + getArtist() + ", album=" + getAlbum() + ", genre="
-                + getGenre() + ", year=" + getYear() + ", track=" + getTrack()
-                + ", title=" + getTitle();
+        return "format=" + getFormat() + ", artist=" + getArtist() + ", album="
+                + getAlbum() + ", genre=" + getGenre() + ", year=" + getYear()
+                + ", track=" + getTrack() + ", title=" + getTitle();
     }
 
     @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
+        result = prime * result
+                + ((getFormat() == null) ? 0 : getFormat().hashCode());
         result = prime * result
                 + ((getAlbum() == null) ? 0 : getAlbum().hashCode());
         result = prime * result

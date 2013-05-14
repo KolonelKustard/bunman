@@ -25,6 +25,10 @@ import com.totalchange.bunman.util.AbstractSong;
 public class Jd7CatalogueTests extends EasyMockSupport {
     private Song makeUnthanksSong(final int track, final String title) {
         return new AbstractSong() {
+            public Format getFormat() {
+                return Format.Mp3;
+            }
+
             public String getArtist() {
                 return "Unthanks";
             }
@@ -57,6 +61,10 @@ public class Jd7CatalogueTests extends EasyMockSupport {
 
     private Song make10ccSong(final int track, final String title) {
         return new AbstractSong() {
+            public Format getFormat() {
+                return Format.Mp3;
+            }
+
             public String getArtist() {
                 return "10cc";
             }

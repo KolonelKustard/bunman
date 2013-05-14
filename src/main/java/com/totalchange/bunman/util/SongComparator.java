@@ -21,6 +21,23 @@ public final class SongComparator implements Comparator<Song> {
         }
     }
 
+    private static final int compareFormats(Song.Format thisFormat,
+            Song.Format thatFormat) {
+        if (thisFormat == null) {
+            if (thatFormat == null) {
+                return 0;
+            } else {
+                return -1;
+            }
+        } else {
+            if (thatFormat != null) {
+                return thisFormat.compareTo(thatFormat);
+            } else {
+                return 1;
+            }
+        }
+    }
+
     static final int staticCompare(Song thisSong, Song thatSong) {
         if (thisSong == thatSong) {
             return 0;
@@ -55,7 +72,12 @@ public final class SongComparator implements Comparator<Song> {
             return comparison;
         }
 
-        comparison = compareStrings(thisSong.getArtist(), thatSong.getArtist());
+        comparison = compareStrings(thisSong.getTitle(), thatSong.getTitle());
+        if (comparison != 0) {
+            return comparison;
+        }
+
+        comparison = compareFormats(thisSong.getFormat(), thatSong.getFormat());
         if (comparison != 0) {
             return comparison;
         }

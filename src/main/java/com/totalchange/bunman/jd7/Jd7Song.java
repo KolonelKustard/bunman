@@ -8,16 +8,22 @@ import java.io.InputStream;
 import com.totalchange.bunman.util.AbstractSong;
 
 final class Jd7Song extends AbstractSong {
+    private Format format;
     private Album albumData;
     private int track;
     private String title;
     private File file;
 
     Jd7Song(Album albumData, int track, String title, File file) {
+        this.format = workOutFormat(file);
         this.albumData = albumData;
         this.track = track;
         this.title = title;
         this.file = file;
+    }
+
+    public Format getFormat() {
+        return format;
     }
 
     public String getArtist() {
