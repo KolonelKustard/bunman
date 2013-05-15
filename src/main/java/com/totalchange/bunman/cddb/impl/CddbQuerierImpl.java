@@ -41,7 +41,7 @@ public class CddbQuerierImpl implements CddbQuerier {
     public void close() throws IOException {
         executor.shutdown();
         try {
-            executor.awaitTermination(1, TimeUnit.MINUTES);
+            executor.awaitTermination(60, TimeUnit.SECONDS);
         } catch (InterruptedException intEx) {
             logger.warn("Timed out waiting for threads to finish", intEx);
         }
@@ -50,7 +50,7 @@ public class CddbQuerierImpl implements CddbQuerier {
             cddbPool.close();
         } catch (Exception ex) {
             logger.warn("A problem occurred closing CDDB connections", ex);
-            throw new IOException(ex);
+            throw new IOException(ex.getMessage());
         }
     }
 }

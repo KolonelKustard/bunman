@@ -18,8 +18,7 @@ final class CddbRunnable implements Runnable {
     private String id;
     private CddbQuerier.Listener listener;
 
-    CddbRunnable(ObjectPool<CDDB> cddbPool, String id,
-            Listener listener) {
+    CddbRunnable(ObjectPool<CDDB> cddbPool, String id, Listener listener) {
         super();
         this.cddbPool = cddbPool;
         this.id = id;
@@ -53,7 +52,7 @@ final class CddbRunnable implements Runnable {
         } catch (IOException ioEx) {
             listener.error(ioEx);
         } catch (Throwable th) {
-            listener.error(new IOException(th));
+            listener.error(new IOException(th.getMessage()));
         }
     }
 }

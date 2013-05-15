@@ -18,6 +18,7 @@
 				<configuration>
 					<archive>
 						<manifest>
+							<mainClass>com.totalchange.bunman.Bunman</mainClass>
 							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
 							<addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
 						</manifest>
@@ -32,11 +33,6 @@
 					<descriptorRefs>
 						<descriptorRef>jar-with-dependencies</descriptorRef>
 					</descriptorRefs>
-					<archive>
-						<manifest>
-							<mainClass>com.totalchange.jd7blaster.Jd7Blaster</mainClass>
-						</manifest>
-					</archive>
 				</configuration>
 				<executions>
 					<execution>
