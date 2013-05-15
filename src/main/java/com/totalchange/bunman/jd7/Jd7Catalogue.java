@@ -44,7 +44,7 @@ final class Jd7Catalogue implements Catalogue {
                 listener.yetAnotherSong(new Jd7Song(album, num + 1, track, file));
             } else {
                 // TODO: Internationalise
-                listener.skippedSomething("Couldn't find a file for "
+                listener.warn("Couldn't find a file for "
                         + "track '" + track + "' from album '"
                         + album.getAlbum() + "' by artist '"
                         + album.getArtist() + "' in directory "
@@ -59,7 +59,7 @@ final class Jd7Catalogue implements Catalogue {
             IdFileAlbum idf = new IdFileAlbum(idFile);
             processAlbumData(listener, idf, dir, idFile);
         } catch (IOException ioEx) {
-            listener.skippedSomething("Couldn''t read ID file " + idFile + ": "
+            listener.warn("Couldn''t read ID file " + idFile + ": "
                     + ioEx.getLocalizedMessage());
         }
     }
@@ -117,7 +117,7 @@ final class Jd7Catalogue implements Catalogue {
         if (results.size() <= 0) {
             logger.trace("No results - need to report as a problem");
             // TODO: Internationalise
-            listener.skippedSomething("Failed to find any CDDB info for id "
+            listener.warn("Failed to find any CDDB info for id "
                     + id + " in directory " + file.getParent());
             return;
         }
@@ -154,7 +154,7 @@ final class Jd7Catalogue implements Catalogue {
         // Bums
         // TODO: sort out a way of flagging multiple possibilities to the user
         // TODO: Internationalise
-        listener.skippedSomething("Couldn't find any suitable CDDB info "
+        listener.warn("Couldn't find any suitable CDDB info "
                 + "for id " + id + " in directory " + file.getParent()
                 + " out of possible matches " + results
                 + ". Fallen back to file names.");
@@ -171,14 +171,14 @@ final class Jd7Catalogue implements Catalogue {
             id = readIdValue(file);
         } catch (IOException ioEx) {
             // TODO: Internationalise
-            listener.skippedSomething("Failed to read an ID value from " + file
+            listener.warn("Failed to read an ID value from " + file
                     + " with error " + ioEx.getMessage());
             return;
         }
 
         if (id == null) {
             // TODO: Internationalise
-            listener.skippedSomething(file + " does not contain an ID value");
+            listener.warn(file + " does not contain an ID value");
             return;
         }
 
@@ -198,7 +198,7 @@ final class Jd7Catalogue implements Catalogue {
             }
 
             public void error(IOException exception) {
-                listener.skippedSomething(exception.getMessage());
+                listener.warn(exception.getMessage());
             }
         });
     }
@@ -229,7 +229,7 @@ final class Jd7Catalogue implements Catalogue {
         try {
             querier.close();
         } catch (IOException ioEx) {
-            listener.skippedSomething(ioEx.getMessage());
+            listener.warn(ioEx.getMessage());
             logger.warn("A problem occurred waiting for the CDDB querier to "
                     + "close", ioEx);
         }

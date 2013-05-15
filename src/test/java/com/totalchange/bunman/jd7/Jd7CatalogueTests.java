@@ -318,7 +318,7 @@ public class Jd7CatalogueTests extends EasyMockSupport {
                 songs.add(song);
             }
 
-            public void skippedSomething(String msg) {
+            public void warn(String msg) {
                 skipped.add(msg);
             }
         });
