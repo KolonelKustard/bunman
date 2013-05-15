@@ -3,11 +3,15 @@ package com.totalchange.bunman.ui.impl;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
+import java.util.List;
+
 import javax.swing.JSplitPane;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
+import com.totalchange.bunman.CatalogueFactory.Location;
+import com.totalchange.bunman.Song;
 import com.totalchange.bunman.ui.BunmanPresenter;
 import com.totalchange.bunman.ui.BunmanView;
 
@@ -16,8 +20,8 @@ public class BunmanFrame extends JFrame implements BunmanView {
 
     private BunmanPresenter presenter;
 
-    private JTable backupTable;
-    private JTable libraryTable;
+    private SongTableModel backupTableModel;
+    private SongTableModel libraryTableModel;
 
     /**
      * Create the application.
@@ -47,7 +51,8 @@ public class BunmanFrame extends JFrame implements BunmanView {
         JScrollPane backupScrollPane = new JScrollPane();
         backupPanel.add(backupScrollPane, BorderLayout.CENTER);
 
-        backupTable = new JTable();
+        this.backupTableModel = new SongTableModel();
+        JTable backupTable = new JTable(backupTableModel);
         backupScrollPane.setViewportView(backupTable);
 
         JPanel libraryPanel = new JPanel();
@@ -61,11 +66,26 @@ public class BunmanFrame extends JFrame implements BunmanView {
         JScrollPane libraryScrollPane = new JScrollPane();
         libraryPanel.add(libraryScrollPane, BorderLayout.CENTER);
 
-        libraryTable = new JTable();
+        this.libraryTableModel = new SongTableModel();
+        JTable libraryTable = new JTable(libraryTableModel);
         libraryScrollPane.setViewportView(libraryTable);
     }
 
     public void setPresenter(BunmanPresenter presenter) {
         this.presenter = presenter;
+    }
+
+    public void showLocationChooser(List<Location> defaultBackupLocations,
+            List<Location> defaultLibraryLocations) {
+        // TODO Auto-generated method stub
+        presenter.scanLocations(null, null);
+    }
+
+    public void addBackupSong(Song song) {
+        backupTableModel.addSong(song);
+    }
+
+    public void addLibrarySong(Song song) {
+        libraryTableModel.addSong(song);
     }
 }

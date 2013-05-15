@@ -1,5 +1,7 @@
 package com.totalchange.bunman.ui;
 
+import java.io.File;
+
 import javax.inject.Inject;
 
 import com.totalchange.bunman.CatalogueFactory;
@@ -23,5 +25,12 @@ public class BunmanPresenterImpl implements BunmanPresenter {
 
     public void go() {
         view.show();
+        view.showLocationChooser(backupCatalogueFactory.findDefaultLocations(),
+                libraryCatalogueFactory.findDefaultLocations());
+    }
+
+    public void scanLocations(File backupRoot, File libraryRoot) {
+        // TODO Auto-generated method stub
+        
     }
 }
