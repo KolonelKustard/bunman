@@ -88,4 +88,19 @@ public class BunmanFrame extends JFrame implements BunmanView {
     public void addLibrarySong(Song song) {
         libraryTableModel.addSong(song);
     }
+
+    public void warn(String msg) {
+        // TODO Auto-generated method stub
+
+    }
+
+    public void showInProgress() {
+        // TODO Auto-generated method stub
+
+    }
+
+    public void hideInProgress() {
+        // TODO Auto-generated method stub
+
+    }
 }

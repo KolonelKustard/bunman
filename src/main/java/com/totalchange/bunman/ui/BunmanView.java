@@ -14,6 +14,10 @@ public interface BunmanView {
             List<CatalogueFactory.Location> defaultBackupLocations,
             List<CatalogueFactory.Location> defaultLibraryLocations);
 
+    void showInProgress();
+    void hideInProgress();
+
     void addBackupSong(Song song);
     void addLibrarySong(Song song);
+    void warn(String msg);
 }
