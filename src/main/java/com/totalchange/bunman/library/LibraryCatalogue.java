@@ -23,7 +23,7 @@ import com.totalchange.bunman.CatalogueSongListener;
 import com.totalchange.bunman.Song;
 import com.totalchange.bunman.WritableCatalogue;
 
-public class LibraryCatalogue implements WritableCatalogue {
+final class LibraryCatalogue implements WritableCatalogue {
     private static final Logger logger = LoggerFactory
             .getLogger(LibraryCatalogue.class);
 

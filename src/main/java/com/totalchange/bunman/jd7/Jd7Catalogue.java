@@ -7,8 +7,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.inject.Inject;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,7 +15,7 @@ import com.totalchange.bunman.CatalogueSongListener;
 import com.totalchange.bunman.cddb.CddbQuerier;
 import com.totalchange.bunman.cddb.CddbResult;
 
-public final class Jd7Catalogue implements Catalogue {
+final class Jd7Catalogue implements Catalogue {
     private static final String CDDB_DATA_CATEGORY = "data";
     private static final String SPLITTER_CDDB = "/";
     private static final String SPLITTER_DIRNAME = "  ";
@@ -29,7 +27,6 @@ public final class Jd7Catalogue implements Catalogue {
     private CddbQuerier querier;
     private File root;
 
-    @Inject
     public Jd7Catalogue(IdnFileAlbumCache cache, CddbQuerier querier, File root) {
         this.cache = cache;
         this.querier = querier;
