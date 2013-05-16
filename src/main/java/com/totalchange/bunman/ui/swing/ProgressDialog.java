@@ -12,14 +12,28 @@ import java.awt.GridLayout;
 import javax.swing.JProgressBar;
 import javax.swing.JLabel;
 
+import com.totalchange.bunman.ui.BunmanPresenter;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
 class ProgressDialog extends JDialog {
     private static final long serialVersionUID = 1L;
 
+    private BunmanPresenter presenter;
     private JProgressBar progressBar;
     private JLabel progressLabel;
 
     public ProgressDialog(JFrame owner) {
         super(owner);
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                presenter.cancelInProgress();
+            }
+        });
 
         setBounds(100, 100, 423, 132);
         getContentPane().setLayout(new BorderLayout());
@@ -39,9 +53,18 @@ class ProgressDialog extends JDialog {
         getContentPane().add(buttonPane, BorderLayout.SOUTH);
 
         JButton cancelButton = new JButton("Cancel");
+        cancelButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                presenter.cancelInProgress();
+            }
+        });
         cancelButton.setActionCommand("Cancel");
         buttonPane.add(cancelButton);
         getRootPane().setDefaultButton(cancelButton);
+    }
+
+    void setPresenter(BunmanPresenter presenter) {
+        this.presenter = presenter;
     }
 
     void setProgress(int percentComplete, String msg) {
