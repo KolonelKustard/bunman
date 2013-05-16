@@ -1,4 +1,4 @@
-package com.totalchange.bunman.ui.impl;
+package com.totalchange.bunman.ui.swing;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,11 +1,11 @@
-package com.totalchange.bunman.ui.impl;
+package com.totalchange.bunman.ui.swing;
 
 import java.beans.Beans;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 final class Messages {
-    private static final String BUNDLE_NAME = "com.totalchange.bunman.ui.impl.messages"; //$NON-NLS-1$
+    private static final String BUNDLE_NAME = Messages.class.getName();
     private static final ResourceBundle RESOURCE_BUNDLE = loadBundle();
 
     private Messages() {

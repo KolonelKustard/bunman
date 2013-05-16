@@ -1,4 +1,4 @@
-package com.totalchange.bunman.ui.impl;
+package com.totalchange.bunman.ui.swing;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -14,6 +14,7 @@ import com.totalchange.bunman.CatalogueFactory.Location;
 import com.totalchange.bunman.Song;
 import com.totalchange.bunman.ui.BunmanPresenter;
 import com.totalchange.bunman.ui.BunmanView;
+import javax.swing.JTextArea;
 
 public class BunmanFrame extends JFrame implements BunmanView {
     private static final long serialVersionUID = 1L;
@@ -35,10 +36,20 @@ public class BunmanFrame extends JFrame implements BunmanView {
      */
     private void initialize() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 450, 300);
+        setBounds(100, 100, 596, 386);
+
+        this.backupTableModel = new SongTableModel();
+
+        this.libraryTableModel = new SongTableModel();
+
+        JSplitPane mainPane = new JSplitPane();
+        mainPane.setResizeWeight(0.8);
+        mainPane.setOrientation(JSplitPane.VERTICAL_SPLIT);
+        getContentPane().add(mainPane, BorderLayout.CENTER);
 
         JSplitPane cataloguesPane = new JSplitPane();
-        getContentPane().add(cataloguesPane, BorderLayout.CENTER);
+        cataloguesPane.setResizeWeight(0.5);
+        mainPane.setLeftComponent(cataloguesPane);
 
         JPanel backupPanel = new JPanel();
         cataloguesPane.setLeftComponent(backupPanel);
@@ -50,8 +61,6 @@ public class BunmanFrame extends JFrame implements BunmanView {
 
         JScrollPane backupScrollPane = new JScrollPane();
         backupPanel.add(backupScrollPane, BorderLayout.CENTER);
-
-        this.backupTableModel = new SongTableModel();
         JTable backupTable = new JTable(backupTableModel);
         backupScrollPane.setViewportView(backupTable);
 
@@ -65,10 +74,15 @@ public class BunmanFrame extends JFrame implements BunmanView {
 
         JScrollPane libraryScrollPane = new JScrollPane();
         libraryPanel.add(libraryScrollPane, BorderLayout.CENTER);
-
-        this.libraryTableModel = new SongTableModel();
         JTable libraryTable = new JTable(libraryTableModel);
         libraryScrollPane.setViewportView(libraryTable);
+
+        JTextArea textArea = new JTextArea();
+        mainPane.setRightComponent(textArea);
+        textArea.setEditable(false);
+        textArea.setText("");
+        
+        
     }
 
     public void setPresenter(BunmanPresenter presenter) {
@@ -106,11 +120,11 @@ public class BunmanFrame extends JFrame implements BunmanView {
 
     public void setInProgress(int percentComplete, String msg) {
         // TODO Auto-generated method stub
-        
+
     }
 
     public void showListToSync(List<Song> toSync) {
         // TODO Auto-generated method stub
-        
+
     }
 }

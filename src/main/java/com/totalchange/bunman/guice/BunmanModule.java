@@ -13,7 +13,7 @@ import com.totalchange.bunman.library.LibraryCatalogueFactory;
 import com.totalchange.bunman.ui.BunmanPresenter;
 import com.totalchange.bunman.ui.BunmanPresenterImpl;
 import com.totalchange.bunman.ui.BunmanView;
-import com.totalchange.bunman.ui.impl.BunmanFrame;
+import com.totalchange.bunman.ui.swing.BunmanFrame;
 
 public class BunmanModule extends AbstractModule {
     private File findAppRoot() {
