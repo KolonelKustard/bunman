@@ -103,4 +103,14 @@ public class BunmanFrame extends JFrame implements BunmanView {
         // TODO Auto-generated method stub
 
     }
+
+    public void setInProgress(int percentComplete, String msg) {
+        // TODO Auto-generated method stub
+        
+    }
+
+    public void showListToSync(List<Song> toSync) {
+        // TODO Auto-generated method stub
+        
+    }
 }

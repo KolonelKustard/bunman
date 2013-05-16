@@ -16,8 +16,11 @@ public interface BunmanView {
 
     void showInProgress();
     void hideInProgress();
+    void setInProgress(int percentComplete, String msg);
 
     void addBackupSong(Song song);
     void addLibrarySong(Song song);
     void warn(String msg);
+
+    void showListToSync(List<Song> toSync);
 }
