@@ -8,7 +8,7 @@ import com.totalchange.bunman.Song;
 public interface BunmanView {
     void setPresenter(BunmanPresenter presenter);
 
-    void show();
+    void setVisible(boolean visible);
 
     void showLocationChooser(
             List<CatalogueFactory.Location> defaultBackupLocations,

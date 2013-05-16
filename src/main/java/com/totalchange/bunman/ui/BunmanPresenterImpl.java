@@ -117,7 +117,7 @@ public class BunmanPresenterImpl implements BunmanPresenter {
 
     public void go() {
         logger.trace("Showing view");
-        view.show();
+        view.setVisible(true);
 
         logger.trace("Looking for default backup and library locations");
         List<CatalogueFactory.Location> backupLocations = backupCatalogueFactory

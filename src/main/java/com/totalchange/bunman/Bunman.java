@@ -2,6 +2,8 @@ package com.totalchange.bunman;
 
 import java.awt.EventQueue;
 
+import javax.swing.UIManager;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -19,6 +21,9 @@ public class Bunman {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
+                    UIManager.setLookAndFeel(UIManager
+                            .getSystemLookAndFeelClassName());
+
                     Injector injector = Guice
                             .createInjector(new BunmanModule());
                     BunmanPresenter presenter = injector

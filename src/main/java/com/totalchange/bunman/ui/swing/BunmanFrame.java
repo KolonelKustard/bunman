@@ -21,6 +21,9 @@ public class BunmanFrame extends JFrame implements BunmanView {
 
     private BunmanPresenter presenter;
 
+    private ProgressDialog progressDialog;
+    private JTextArea warningsTextArea;
+
     private SongTableModel backupTableModel;
     private SongTableModel libraryTableModel;
 
@@ -77,12 +80,12 @@ public class BunmanFrame extends JFrame implements BunmanView {
         JTable libraryTable = new JTable(libraryTableModel);
         libraryScrollPane.setViewportView(libraryTable);
 
-        JTextArea textArea = new JTextArea();
-        mainPane.setRightComponent(textArea);
-        textArea.setEditable(false);
-        textArea.setText("");
-        
-        
+        warningsTextArea = new JTextArea();
+        mainPane.setRightComponent(warningsTextArea);
+        warningsTextArea.setEditable(false);
+        warningsTextArea.setText("");
+
+        progressDialog = new ProgressDialog(this);
     }
 
     public void setPresenter(BunmanPresenter presenter) {
@@ -91,8 +94,17 @@ public class BunmanFrame extends JFrame implements BunmanView {
 
     public void showLocationChooser(List<Location> defaultBackupLocations,
             List<Location> defaultLibraryLocations) {
-        // TODO Auto-generated method stub
-        presenter.scanLocations(null, null);
+        LocationChooserDialog dlg = new LocationChooserDialog(this,
+                defaultBackupLocations, defaultLibraryLocations);
+        dlg.setVisible(true);
+
+        if (dlg.getBackupRoot() != null && dlg.getBackupRoot().exists()
+                && dlg.getBackupRoot().isDirectory()
+                && dlg.getLibraryRoot() != null
+                && dlg.getLibraryRoot().exists()
+                && dlg.getLibraryRoot().isDirectory()) {
+            presenter.scanLocations(dlg.getBackupRoot(), dlg.getLibraryRoot());
+        }
     }
 
     public void addBackupSong(Song song) {
@@ -104,23 +116,19 @@ public class BunmanFrame extends JFrame implements BunmanView {
     }
 
     public void warn(String msg) {
-        // TODO Auto-generated method stub
-
+        warningsTextArea.append(msg + "\n");
     }
 
     public void showInProgress() {
-        // TODO Auto-generated method stub
-
+        progressDialog.setVisible(true);
     }
 
     public void hideInProgress() {
-        // TODO Auto-generated method stub
-
+        progressDialog.setVisible(false);
     }
 
     public void setInProgress(int percentComplete, String msg) {
-        // TODO Auto-generated method stub
-
+        progressDialog.setProgress(percentComplete, msg);
     }
 
     public void showListToSync(List<Song> toSync) {
