@@ -53,7 +53,7 @@ final class CddbRunnable implements Runnable {
         } catch (IOException ioEx) {
             listener.error(ioEx);
         } catch (Throwable th) {
-            listener.error(new IOException(th.getMessage()));
+            listener.error(new IOException(th));
         }
     }
 }

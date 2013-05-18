@@ -65,7 +65,7 @@ class LocationChooserDialog extends JDialog {
         backupPanel.add(backupSelectPanel, BorderLayout.CENTER);
         backupSelectPanel.setLayout(new BorderLayout(0, 0));
 
-        final JComboBox<String> backupComboBox = new JComboBox<String>();
+        final JComboBox backupComboBox = new JComboBox();
         backupComboBox.setPreferredSize(new Dimension(400, 20));
         for (CatalogueFactory.Location location : backupLocations) {
             backupComboBox.addItem(location.getName() + " - "
@@ -105,7 +105,7 @@ class LocationChooserDialog extends JDialog {
         libraryPanel.add(librarySelectPanel, BorderLayout.CENTER);
         librarySelectPanel.setLayout(new BorderLayout(0, 0));
 
-        final JComboBox<String> libraryComboBox = new JComboBox<String>();
+        final JComboBox libraryComboBox = new JComboBox();
         libraryComboBox.setPreferredSize(new Dimension(400, 20));
         for (CatalogueFactory.Location location : libraryLocations) {
             libraryComboBox.addItem(location.getName() + " - "

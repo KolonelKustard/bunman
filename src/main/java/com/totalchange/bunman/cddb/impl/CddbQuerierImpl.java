@@ -50,7 +50,7 @@ public class CddbQuerierImpl implements CddbQuerier {
             cddbPool.close();
         } catch (Exception ex) {
             logger.warn("A problem occurred closing CDDB connections", ex);
-            throw new IOException(ex.getMessage());
+            throw new IOException(ex);
         }
     }
 }

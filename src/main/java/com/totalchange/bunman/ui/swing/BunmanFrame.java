@@ -17,6 +17,7 @@ import com.totalchange.bunman.ui.BunmanPresenter;
 import com.totalchange.bunman.ui.BunmanView;
 import javax.swing.JTextArea;
 import java.awt.Dimension;
+import java.awt.Font;
 
 public class BunmanFrame extends JFrame implements BunmanView {
     private static final long serialVersionUID = 1L;
@@ -44,7 +45,8 @@ public class BunmanFrame extends JFrame implements BunmanView {
      */
     private void initialize() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 596, 386);
+        setBounds(100, 100, 600, 400);
+        setLocationRelativeTo(null);
 
         this.backupTableModel = new SongTableModel();
 
@@ -92,11 +94,15 @@ public class BunmanFrame extends JFrame implements BunmanView {
         libraryTable.setMinimumSize(new Dimension(0, 0));
         libraryTable.setAutoCreateRowSorter(true);
         libraryScrollPane.setViewportView(libraryTable);
-
-        warningsTextArea = new JTextArea();
-        mainPane.setRightComponent(warningsTextArea);
-        warningsTextArea.setEditable(false);
-        warningsTextArea.setText("");
+        
+        JScrollPane warningsScrollPane = new JScrollPane();
+        mainPane.setRightComponent(warningsScrollPane);
+        
+                warningsTextArea = new JTextArea();
+                warningsScrollPane.setViewportView(warningsTextArea);
+                warningsTextArea.setFont(new Font("Monospaced", Font.PLAIN, 11));
+                warningsTextArea.setEditable(false);
+                warningsTextArea.setText("");
 
         progressDialog = new ProgressDialog(this);
     }

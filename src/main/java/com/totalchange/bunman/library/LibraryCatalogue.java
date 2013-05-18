@@ -146,7 +146,7 @@ final class LibraryCatalogue implements WritableCatalogue {
             // TODO: Internationalise
             throw new IOException("Failed to write tag data to " + songFile
                     + " based on song " + song + " with error: "
-                    + th.getMessage());
+                    + th.getMessage(), th);
         }
     }
 }
