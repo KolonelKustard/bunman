@@ -9,7 +9,7 @@ import javax.swing.table.TableModel;
 
 import com.totalchange.bunman.Song;
 
-final class SongTableModel implements TableModel {
+class SongTableModel implements TableModel {
     private static final int COL_ARTIST = 0;
     private static final int COL_ALBUM = 1;
     private static final int COL_TRACK = 2;
@@ -18,7 +18,7 @@ final class SongTableModel implements TableModel {
     private static final Class<?>[] COLUMN_TYPES = new Class[] { String.class,
             String.class, Integer.class, String.class };
 
-    private List<Song> songs;
+    protected List<Song> songs;
     private List<TableModelListener> listeners = new ArrayList<TableModelListener>();
 
     SongTableModel() {
@@ -89,7 +89,9 @@ final class SongTableModel implements TableModel {
 
     void addSong(Song song) {
         songs.add(song);
-        TableModelEvent ev = new TableModelEvent(this, songs.size() - 1);
+        TableModelEvent ev = new TableModelEvent(this, songs.size() - 1,
+                songs.size() - 1, TableModelEvent.ALL_COLUMNS,
+                TableModelEvent.INSERT);
         for (TableModelListener listener : listeners) {
             listener.tableChanged(ev);
         }

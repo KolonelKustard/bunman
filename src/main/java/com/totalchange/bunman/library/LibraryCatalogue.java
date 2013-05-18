@@ -73,7 +73,14 @@ final class LibraryCatalogue implements WritableCatalogue {
 
     private File makeSongFile(Song song) {
         File artistDir = new File(root, makeFileSystemSafe(song.getArtist()));
+        if (!artistDir.exists()) {
+            artistDir.mkdir();
+        }
+
         File albumDir = new File(artistDir, makeFileSystemSafe(song.getAlbum()));
+        if (!albumDir.exists()) {
+            albumDir.mkdir();
+        }
 
         StringBuilder filename = new StringBuilder();
         if (song.getTrack() > 0 && song.getTrack() < 10) {
@@ -81,10 +88,10 @@ final class LibraryCatalogue implements WritableCatalogue {
         } else if (song.getTrack() > 0) {
             filename.append(song.getTrack()).append(" - ");
         }
-        filename.append(song.getTitle());
+        filename.append(makeFileSystemSafe(song.getTitle()));
         filename.append(".").append(song.getFormat().getExtension());
 
-        return new File(albumDir, makeFileSystemSafe(filename.toString()));
+        return new File(albumDir, filename.toString());
     }
 
     public void listAllSongs(CatalogueSongListener listener) {

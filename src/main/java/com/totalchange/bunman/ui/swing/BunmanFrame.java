@@ -5,6 +5,7 @@ import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import java.util.List;
 
+import javax.swing.JOptionPane;
 import javax.swing.JSplitPane;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
@@ -15,6 +16,7 @@ import com.totalchange.bunman.Song;
 import com.totalchange.bunman.ui.BunmanPresenter;
 import com.totalchange.bunman.ui.BunmanView;
 import javax.swing.JTextArea;
+import java.awt.Dimension;
 
 public class BunmanFrame extends JFrame implements BunmanView {
     private static final long serialVersionUID = 1L;
@@ -26,6 +28,9 @@ public class BunmanFrame extends JFrame implements BunmanView {
 
     private SongTableModel backupTableModel;
     private SongTableModel libraryTableModel;
+
+    private JLabel backupLabel;
+    private JLabel libraryLabel;
 
     /**
      * Create the application.
@@ -55,29 +60,37 @@ public class BunmanFrame extends JFrame implements BunmanView {
         mainPane.setLeftComponent(cataloguesPane);
 
         JPanel backupPanel = new JPanel();
+        backupPanel.setMinimumSize(new Dimension(0, 0));
         cataloguesPane.setLeftComponent(backupPanel);
         backupPanel.setLayout(new BorderLayout(0, 0));
 
-        JLabel backupLabel = new JLabel(
+        backupLabel = new JLabel(
                 Messages.getString("BunmanFrame.backupLabel.text")); //$NON-NLS-1$
         backupPanel.add(backupLabel, BorderLayout.NORTH);
 
         JScrollPane backupScrollPane = new JScrollPane();
+        backupScrollPane.setMinimumSize(new Dimension(0, 0));
         backupPanel.add(backupScrollPane, BorderLayout.CENTER);
         JTable backupTable = new JTable(backupTableModel);
+        backupTable.setMinimumSize(new Dimension(0, 0));
+        backupTable.setAutoCreateRowSorter(true);
         backupScrollPane.setViewportView(backupTable);
 
         JPanel libraryPanel = new JPanel();
+        libraryPanel.setMinimumSize(new Dimension(0, 0));
         cataloguesPane.setRightComponent(libraryPanel);
         libraryPanel.setLayout(new BorderLayout(0, 0));
 
-        JLabel libraryLabel = new JLabel(
+        libraryLabel = new JLabel(
                 Messages.getString("BunmanFrame.libraryLabel.text")); //$NON-NLS-1$
         libraryPanel.add(libraryLabel, BorderLayout.NORTH);
 
         JScrollPane libraryScrollPane = new JScrollPane();
+        libraryScrollPane.setMinimumSize(new Dimension(0, 0));
         libraryPanel.add(libraryScrollPane, BorderLayout.CENTER);
         JTable libraryTable = new JTable(libraryTableModel);
+        libraryTable.setMinimumSize(new Dimension(0, 0));
+        libraryTable.setAutoCreateRowSorter(true);
         libraryScrollPane.setViewportView(libraryTable);
 
         warningsTextArea = new JTextArea();
@@ -103,6 +116,8 @@ public class BunmanFrame extends JFrame implements BunmanView {
                 && dlg.getLibraryRoot() != null
                 && dlg.getLibraryRoot().exists()
                 && dlg.getLibraryRoot().isDirectory()) {
+            backupLabel.setText(dlg.getBackupRoot().getAbsolutePath());
+            libraryLabel.setText(dlg.getLibraryRoot().getAbsolutePath());
             presenter.scanLocations(dlg.getBackupRoot(), dlg.getLibraryRoot());
         }
     }
@@ -125,6 +140,7 @@ public class BunmanFrame extends JFrame implements BunmanView {
 
     public void hideInProgress() {
         progressDialog.setVisible(false);
+        repaint();
     }
 
     public void setInProgress(int percentComplete, String msg) {
@@ -132,7 +148,15 @@ public class BunmanFrame extends JFrame implements BunmanView {
     }
 
     public void showListToSync(List<Song> toSync) {
-        // TODO Auto-generated method stub
-
+        MissingSongsDialog dlg = new MissingSongsDialog(this, toSync);
+        dlg.setVisible(true);
+        if (dlg.getSelectedSongs() != null) {
+            if (dlg.getSelectedSongs().size() <= 0) {
+                // TODO: Internationalise
+                JOptionPane.showMessageDialog(this, "Nothing to copy across");
+            } else {
+                presenter.copyFromBackupToLibrary(dlg.getSelectedSongs());
+            }
+        }
     }
 }

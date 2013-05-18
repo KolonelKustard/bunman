@@ -15,11 +15,14 @@ import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
 
 import com.totalchange.bunman.Song;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class MissingSongsDialog extends JDialog {
     private static final long serialVersionUID = 1L;
 
-    private SongTableModel songTableModel;
+    private SelectSongTableModel songTableModel;
+    private List<Song> selectedSongs = null;
 
     /**
      * Create the dialog.
@@ -38,7 +41,7 @@ public class MissingSongsDialog extends JDialog {
         JScrollPane scrollPane = new JScrollPane();
         contentPanel.add(scrollPane, BorderLayout.CENTER);
 
-        this.songTableModel = new SongTableModel(songs);
+        this.songTableModel = new SelectSongTableModel(songs);
         JTable table = new JTable(songTableModel);
         table.setAutoCreateRowSorter(true);
         scrollPane.setViewportView(table);
@@ -55,12 +58,27 @@ public class MissingSongsDialog extends JDialog {
         getContentPane().add(buttonPane, BorderLayout.SOUTH);
 
         JButton okButton = new JButton("OK");
+        okButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                selectedSongs = songTableModel.getSelectedSongs();
+                setVisible(false);
+            }
+        });
         okButton.setActionCommand("OK");
         buttonPane.add(okButton);
         getRootPane().setDefaultButton(okButton);
 
         JButton cancelButton = new JButton("Cancel");
+        cancelButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                setVisible(false);
+            }
+        });
         cancelButton.setActionCommand("Cancel");
         buttonPane.add(cancelButton);
+    }
+
+    List<Song> getSelectedSongs() {
+        return selectedSongs;
     }
 }

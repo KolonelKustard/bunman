@@ -148,6 +148,8 @@ public class BunmanPresenterImpl implements BunmanPresenter {
         executor.execute(new Runnable() {
             public void run() {
                 scanStarted();
+                // TODO: Internationalise
+                backupWarn("Started scanning backup location");
                 backupCatalogue.listAllSongs(new CatalogueSongListener() {
                     public void yetAnotherSong(Song song) {
                         addBackupSong(song);
@@ -157,6 +159,8 @@ public class BunmanPresenterImpl implements BunmanPresenter {
                         backupWarn(msg);
                     }
                 });
+                // TODO: Internationalise
+                backupWarn("Completed scanning backup location");
                 scanComplete();
             }
         });
@@ -164,6 +168,8 @@ public class BunmanPresenterImpl implements BunmanPresenter {
         executor.execute(new Runnable() {
             public void run() {
                 scanStarted();
+                // TODO: Internationalise
+                libraryWarn("Started scanning library location");
                 libraryCatalogue.listAllSongs(new CatalogueSongListener() {
                     public void yetAnotherSong(Song song) {
                         addLibrarySong(song);
@@ -173,6 +179,8 @@ public class BunmanPresenterImpl implements BunmanPresenter {
                         libraryWarn(msg);
                     }
                 });
+                // TODO: Internationalise
+                libraryWarn("Completed scanning library location");
                 scanComplete();
             }
         });
