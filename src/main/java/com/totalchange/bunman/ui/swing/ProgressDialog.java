@@ -28,6 +28,8 @@ class ProgressDialog extends JDialog {
 
     public ProgressDialog(JFrame owner) {
         super(owner);
+        setBounds(100, 100, 423, 132);
+        setLocationRelativeTo(owner);
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -35,7 +37,6 @@ class ProgressDialog extends JDialog {
             }
         });
 
-        setBounds(100, 100, 423, 132);
         getContentPane().setLayout(new BorderLayout());
         JPanel contentPanel = new JPanel();
         contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));

@@ -31,6 +31,7 @@ public class MissingSongsDialog extends JDialog {
         super(owner, true);
 
         setBounds(100, 100, 450, 300);
+        setLocationRelativeTo(owner);
 
         JPanel contentPanel = new JPanel();
         getContentPane().setLayout(new BorderLayout());
