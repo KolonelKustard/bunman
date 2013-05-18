@@ -94,15 +94,15 @@ public class BunmanFrame extends JFrame implements BunmanView {
         libraryTable.setMinimumSize(new Dimension(0, 0));
         libraryTable.setAutoCreateRowSorter(true);
         libraryScrollPane.setViewportView(libraryTable);
-        
+
         JScrollPane warningsScrollPane = new JScrollPane();
         mainPane.setRightComponent(warningsScrollPane);
-        
-                warningsTextArea = new JTextArea();
-                warningsScrollPane.setViewportView(warningsTextArea);
-                warningsTextArea.setFont(new Font("Monospaced", Font.PLAIN, 11));
-                warningsTextArea.setEditable(false);
-                warningsTextArea.setText("");
+
+        warningsTextArea = new JTextArea();
+        warningsScrollPane.setViewportView(warningsTextArea);
+        warningsTextArea.setFont(new Font("Monospaced", Font.PLAIN, 11));
+        warningsTextArea.setEditable(false);
+        warningsTextArea.setText("");
 
         progressDialog = new ProgressDialog(this);
     }
@@ -154,6 +154,15 @@ public class BunmanFrame extends JFrame implements BunmanView {
     }
 
     public void showListToSync(List<Song> toSync) {
+        if (toSync.size() <= 0) {
+            // TODO: Internationalise
+            JOptionPane.showMessageDialog(this, "Everything from the backup "
+                    + "appears to be in the library. Maybe you need to "
+                    + "perform another backup or maybe you've already "
+                    + "synchronised this backup.");
+            return;
+        }
+
         MissingSongsDialog dlg = new MissingSongsDialog(this, toSync);
         dlg.setVisible(true);
         if (dlg.getSelectedSongs() != null) {

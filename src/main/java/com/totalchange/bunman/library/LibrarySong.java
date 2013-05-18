@@ -24,23 +24,39 @@ final class LibrarySong extends AbstractSong {
         this.file = file;
 
         this.format = workOutFormat(file);
-        this.artist = tag.getFirst(FieldKey.ARTIST);
-        this.album = tag.getFirst(FieldKey.ALBUM);
-        this.genre = tag.getFirst(FieldKey.GENRE);
+        this.artist = getTagString(tag, FieldKey.ARTIST);
+        this.album = getTagString(tag, FieldKey.ALBUM);
+        this.genre = getTagString(tag, FieldKey.GENRE);
+        this.year = getTagInt(tag, FieldKey.YEAR);
+        this.track = getTagInt(tag, FieldKey.TRACK);
+        this.title = getTagString(tag, FieldKey.TITLE);
+    }
 
-        try {
-            this.year = Integer.parseInt(tag.getFirst(FieldKey.YEAR));
-        } catch (NumberFormatException nfEx) {
-            this.year = -1;
+    private String getTagString(Tag tag, FieldKey key) {
+        String str = tag.getFirst(key);
+        if (str == null) {
+            return null;
+        } else {
+            str = str.trim();
+            if (str.length() <= 0) {
+                return null;
+            } else {
+                return str;
+            }
         }
+    }
 
-        try {
-            this.track = Integer.parseInt(tag.getFirst(FieldKey.TRACK));
-        } catch (NumberFormatException nfEx) {
-            this.track = -1;
+    private int getTagInt(Tag tag, FieldKey key) {
+        String str = getTagString(tag, key);
+        if (str == null) {
+            return -1;
+        } else {
+            try {
+                return Integer.parseInt(str);
+            } catch (NumberFormatException nfEx) {
+                return -1;
+            }
         }
-
-        this.title = tag.getFirst(FieldKey.TITLE);
     }
 
     public Format getFormat() {
@@ -73,5 +89,10 @@ final class LibrarySong extends AbstractSong {
 
     public InputStream getInputStream() throws IOException {
         return new FileInputStream(file);
+    }
+
+    @Override
+    public String toString() {
+        return "LibrarySong [" + super.toString() + ", file=" + file + "]";
     }
 }
