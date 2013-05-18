@@ -132,12 +132,41 @@ final class LibraryCatalogue implements WritableCatalogue {
             MP3File f = (MP3File) AudioFileIO.read(songFile);
 
             Tag tag = f.getTagOrCreateAndSetDefault();
-            tag.setField(FieldKey.ARTIST, song.getArtist());
-            tag.setField(FieldKey.ALBUM, song.getAlbum());
-            tag.setField(FieldKey.GENRE, song.getGenre());
-            tag.setField(FieldKey.YEAR, String.valueOf(song.getYear()));
-            tag.setField(FieldKey.TRACK, String.valueOf(song.getTrack()));
-            tag.setField(FieldKey.TITLE, song.getTitle());
+            if (song.getArtist() != null) {
+                tag.setField(FieldKey.ARTIST, song.getArtist());
+            } else {
+                tag.deleteField(FieldKey.ARTIST);
+            }
+
+            if (song.getAlbum() != null) {
+                tag.setField(FieldKey.ALBUM, song.getAlbum());
+            } else {
+                tag.deleteField(FieldKey.ALBUM);
+            }
+
+            if (song.getGenre() != null) {
+                tag.setField(FieldKey.GENRE, song.getGenre());
+            } else {
+                tag.deleteField(FieldKey.GENRE);
+            }
+
+            if (song.getYear() > -1) {
+                tag.setField(FieldKey.YEAR, String.valueOf(song.getYear()));
+            } else {
+                tag.deleteField(FieldKey.YEAR);
+            }
+
+            if (song.getTrack() > -1) {
+                tag.setField(FieldKey.TRACK, String.valueOf(song.getTrack()));
+            } else {
+                tag.deleteField(FieldKey.TRACK);
+            }
+
+            if (song.getTitle() != null) {
+                tag.setField(FieldKey.TITLE, song.getTitle());
+            } else {
+                tag.deleteField(FieldKey.TITLE);
+            }
 
             f.commit();
 
