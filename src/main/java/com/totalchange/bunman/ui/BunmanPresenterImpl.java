@@ -51,6 +51,14 @@ public class BunmanPresenterImpl implements BunmanPresenter {
         this.view.setPresenter(this);
     }
 
+    private int percenter(double soFar, double total) {
+        if (total != 0) {
+            return (int) ((soFar / total) * 100);
+        } else {
+            return 0;
+        }
+    }
+
     private List<Song> identifyWhatToSync() {
         List<Song> toSync = new ArrayList<Song>();
 
@@ -63,7 +71,7 @@ public class BunmanPresenterImpl implements BunmanPresenter {
             }
 
             counter++;
-            view.setInProgress((counter / total) * 100, null);
+            view.setInProgress(percenter(counter, total), null);
         }
 
         Collections.sort(toSync);
@@ -79,9 +87,8 @@ public class BunmanPresenterImpl implements BunmanPresenter {
         scansInProgress--;
         if (scansInProgress <= 0) {
             List<Song> toSync = identifyWhatToSync();
-            view.showListToSync(toSync);
-
             view.hideInProgress();
+            view.showListToSync(toSync);
         }
     }
 
@@ -209,7 +216,7 @@ public class BunmanPresenterImpl implements BunmanPresenter {
                     }
 
                     counter++;
-                    view.setInProgress((counter / total) * 100, null);
+                    view.setInProgress(percenter(counter, total), null);
                 }
 
                 view.hideInProgress();

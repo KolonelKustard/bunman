@@ -28,6 +28,7 @@ class ProgressDialog extends JDialog {
 
     public ProgressDialog(JFrame owner) {
         super(owner);
+        setAlwaysOnTop(true);
         setBounds(100, 100, 423, 132);
         setLocationRelativeTo(owner);
         addWindowListener(new WindowAdapter() {

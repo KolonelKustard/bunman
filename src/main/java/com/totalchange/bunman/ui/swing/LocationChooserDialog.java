@@ -37,9 +37,6 @@ class LocationChooserDialog extends JDialog {
             final List<CatalogueFactory.Location> backupLocations,
             final List<CatalogueFactory.Location> libraryLocations) {
         super(owner, true);
-
-        setBounds(100, 100, 450, 296);
-        setLocationRelativeTo(owner);
         
         getContentPane().setLayout(new BorderLayout());
         contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -172,6 +169,7 @@ class LocationChooserDialog extends JDialog {
         buttonPane.add(cancelButton);
 
         this.pack();
+        this.setLocationRelativeTo(owner);
     }
 
     private File chooseDirectory() {
