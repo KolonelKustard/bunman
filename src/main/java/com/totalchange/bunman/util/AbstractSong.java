@@ -10,8 +10,14 @@ public abstract class AbstractSong implements Song, Comparable<Song> {
     }
 
     protected Format workOutFormat(File file) {
+        String filename = file.getName();
+        if (filename == null) {
+            return null;
+        }
+
+        filename = filename.toLowerCase();
         for (Format format : Format.values()) {
-            if (file.getName().endsWith("." + format.getExtension())) {
+            if (filename.endsWith("." + format.getExtension())) {
                 return format;
             }
         }
