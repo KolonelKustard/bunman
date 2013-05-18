@@ -34,19 +34,23 @@ final class Jd7Catalogue implements Catalogue {
     }
 
     private void processAlbumData(CatalogueSongListener listener, Album album,
-            File dir, File... ignored) {
+            boolean ignoreTrackNum, File dir, File... ignored) {
         FileFinder fileFinder = new FileFinder(dir.listFiles(), ignored);
         for (int num = 0; num < album.getTracks().size(); num++) {
             String track = album.getTracks().get(num);
 
             File file = fileFinder.findTrackFile(track);
             if (file != null) {
-                listener.yetAnotherSong(new Jd7Song(album, num + 1, track, file));
+                int trackNum = -1;
+                if (!ignoreTrackNum) {
+                    trackNum = num + 1;
+                }
+                listener.yetAnotherSong(new Jd7Song(album, trackNum, track,
+                        file));
             } else {
                 // TODO: Internationalise
-                listener.warn("Couldn't find a file for "
-                        + "track '" + track + "' from album '"
-                        + album.getAlbum() + "' by artist '"
+                listener.warn("Couldn't find a file for " + "track '" + track
+                        + "' from album '" + album.getAlbum() + "' by artist '"
                         + album.getArtist() + "' in directory "
                         + dir.getAbsolutePath());
             }
@@ -57,7 +61,7 @@ final class Jd7Catalogue implements Catalogue {
             CatalogueSongListener listener) {
         try {
             IdFileAlbum idf = new IdFileAlbum(idFile);
-            processAlbumData(listener, idf, dir, idFile);
+            processAlbumData(listener, idf, false, dir, idFile);
         } catch (IOException ioEx) {
             listener.warn("Couldn''t read ID file " + idFile + ": "
                     + ioEx.getLocalizedMessage());
@@ -90,7 +94,7 @@ final class Jd7Catalogue implements Catalogue {
     private void addItemToQueueAndCacheIt(CatalogueSongListener listener,
             File file, String id, IdnFileAlbum idnf) {
         cache.putFileIntoCache(id, file.getParentFile().getName(), idnf);
-        processAlbumData(listener, idnf, file.getParentFile(), file);
+        processAlbumData(listener, idnf, false, file.getParentFile(), file);
     }
 
     private boolean equalsIgnoreCase(String[] arr1, String[] arr2) {
@@ -117,8 +121,8 @@ final class Jd7Catalogue implements Catalogue {
         if (results.size() <= 0) {
             logger.trace("No results - need to report as a problem");
             // TODO: Internationalise
-            listener.warn("Failed to find any CDDB info for id "
-                    + id + " in directory " + file.getParent());
+            listener.warn("Failed to find any CDDB info for id " + id
+                    + " in directory " + file.getParent());
             return;
         }
 
@@ -154,11 +158,11 @@ final class Jd7Catalogue implements Catalogue {
         // Bums
         // TODO: sort out a way of flagging multiple possibilities to the user
         // TODO: Internationalise
-        listener.warn("Couldn't find any suitable CDDB info "
-                + "for id " + id + " in directory " + file.getParent()
+        listener.warn("Couldn't find any suitable CDDB info " + "for id " + id
+                + " in directory " + file.getParent()
                 + " out of possible matches " + results
                 + ". Fallen back to file names.");
-        processAlbumData(listener, new NoFileAlbum(file.getParentFile()),
+        processAlbumData(listener, new NoFileAlbum(file.getParentFile()), true,
                 file.getParentFile(), file);
     }
 
@@ -188,7 +192,7 @@ final class Jd7Catalogue implements Catalogue {
         if (idnf != null) {
             logger.trace("Got result {} from cache", idnf);
             idnf.setIdnFile(file);
-            processAlbumData(listener, idnf, file.getParentFile(), file);
+            processAlbumData(listener, idnf, false, file.getParentFile(), file);
         }
 
         logger.trace("Querying for CDDB results for id {}", id);
