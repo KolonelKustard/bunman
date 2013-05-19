@@ -12,9 +12,28 @@ import com.google.inject.Injector;
 import com.totalchange.bunman.guice.BunmanModule;
 import com.totalchange.bunman.ui.BunmanPresenter;
 
-public class Bunman {
+/**
+ * <p>
+ * The <code>main</code> class for starting up the Bunman application.
+ * </p>
+ * 
+ * @author Ralph Jones
+ */
+public final class Bunman {
     private static final Logger logger = LoggerFactory.getLogger(Bunman.class);
 
+    private Bunman() {
+        // To prevent instantiation of utility class
+    }
+
+    /**
+     * <p>
+     * Starts up the Bunman application. No arguments are expected.
+     * </p>
+     * 
+     * @param args
+     *            currently ignored
+     */
     public static void main(String[] args) {
         logger.info("Starting up");
 
