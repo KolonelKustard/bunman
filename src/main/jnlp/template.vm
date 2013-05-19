@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<jnlp spec="1.0+" codebase="http://www.domaine.com/webstart/" href="$outputFile">
+<jnlp spec="1.0+" codebase="$project.url" href="$outputFile">
 	<information>
 		<title>$informationTitle</title>
 		<vendor>$informationVendor<vendor/>
-		<homepage>$informationHomepage<homepage/>
+		<homepage>$project.url<homepage/>
 		<description kind="one-line">$informationDescription</description>
 	</information>
 	<security>

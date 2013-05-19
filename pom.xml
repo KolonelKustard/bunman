@@ -9,7 +9,7 @@
 	<packaging>jar</packaging>
 	<name>Bun Man</name>
 	<description>Synchronises a Brennan JB7 backup to another library of MP3 files</description>
-	<url>http://kolonelkustard.github.io/bunman</url>
+	<url>http://kolonelkustard.github.io/bunman/</url>
 	
 	<organization>
 		<name>TotalChange</name>
