@@ -1,4 +1,4 @@
-package com.totalchange.bunman.jd7;
+package com.totalchange.bunman.jb7;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -15,19 +15,19 @@ import com.totalchange.bunman.CatalogueSongListener;
 import com.totalchange.bunman.cddb.CddbQuerier;
 import com.totalchange.bunman.cddb.CddbResult;
 
-final class Jd7Catalogue implements Catalogue {
+final class Jb7Catalogue implements Catalogue {
     private static final String CDDB_DATA_CATEGORY = "data";
     private static final String SPLITTER_CDDB = "/";
     private static final String SPLITTER_DIRNAME = "  ";
 
     private static final Logger logger = LoggerFactory
-            .getLogger(Jd7Catalogue.class);
+            .getLogger(Jb7Catalogue.class);
 
     private IdnFileAlbumCache cache;
     private CddbQuerier querier;
     private File root;
 
-    public Jd7Catalogue(IdnFileAlbumCache cache, CddbQuerier querier, File root) {
+    public Jb7Catalogue(IdnFileAlbumCache cache, CddbQuerier querier, File root) {
         this.cache = cache;
         this.querier = querier;
         this.root = root;
@@ -45,7 +45,7 @@ final class Jd7Catalogue implements Catalogue {
                 if (!ignoreTrackNum) {
                     trackNum = num + 1;
                 }
-                listener.yetAnotherSong(new Jd7Song(album, trackNum, track,
+                listener.yetAnotherSong(new Jb7Song(album, trackNum, track,
                         file));
             } else {
                 // TODO: Internationalise
@@ -135,11 +135,11 @@ final class Jd7Catalogue implements Catalogue {
 
         // Got more than 1 result - remove any that don't match on artist and
         // title (and skip any in the "data" category).
-        String[] dirSplit = Jd7Utils.splitArtistAlbumBits(file.getParentFile()
+        String[] dirSplit = Jb7Utils.splitArtistAlbumBits(file.getParentFile()
                 .getName(), SPLITTER_DIRNAME);
         List<CddbResult> matches = new ArrayList<CddbResult>();
         for (CddbResult cddb : results) {
-            String[] resSplit = Jd7Utils.splitArtistAlbumBits(cddb.getTitle(),
+            String[] resSplit = Jb7Utils.splitArtistAlbumBits(cddb.getTitle(),
                     SPLITTER_CDDB);
             if (!cddb.getCategory().equalsIgnoreCase(CDDB_DATA_CATEGORY)
                     && equalsIgnoreCase(dirSplit, resSplit)) {

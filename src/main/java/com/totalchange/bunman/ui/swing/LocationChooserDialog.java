@@ -57,7 +57,7 @@ class LocationChooserDialog extends JDialog {
         backupTextArea.setOpaque(false);
         backupTextArea.setFont(new Font("Tahoma", Font.PLAIN, 11));
         backupTextArea
-                .setText("Choose the location of your Brennan JD7 backup. Hopefully the location has already been detected and you can choose from the list already provided. If it's not there then you'll need to click the Browse... button and find the directory containing all the backup files yourself.");
+                .setText("Choose the location of your Brennan JB7 backup. Hopefully the location has already been detected and you can choose from the list already provided. If it's not there then you'll need to click the Browse... button and find the directory containing all the backup files yourself.");
         backupPanel.add(backupTextArea, BorderLayout.NORTH);
 
         JPanel backupSelectPanel = new JPanel();

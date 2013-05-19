@@ -1,4 +1,4 @@
-package com.totalchange.bunman.jd7;
+package com.totalchange.bunman.jb7;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -7,14 +7,14 @@ import java.io.InputStream;
 
 import com.totalchange.bunman.util.AbstractSong;
 
-final class Jd7Song extends AbstractSong {
+final class Jb7Song extends AbstractSong {
     private Format format;
     private Album albumData;
     private int track;
     private String title;
     private File file;
 
-    Jd7Song(Album albumData, int track, String title, File file) {
+    Jb7Song(Album albumData, int track, String title, File file) {
         this.format = workOutFormat(file);
         this.albumData = albumData;
         this.track = track;
@@ -56,6 +56,6 @@ final class Jd7Song extends AbstractSong {
 
     @Override
     public String toString() {
-        return "Jd7Song [" + super.toString() + ", file=" + file + "]";
+        return "Jb7Song [" + super.toString() + ", file=" + file + "]";
     }
 }

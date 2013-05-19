@@ -1,10 +1,12 @@
-package com.totalchange.bunman.jd7;
+package com.totalchange.bunman.jb7;
 
 import static org.junit.Assert.*;
 
 import java.io.File;
 
 import org.junit.Test;
+
+import com.totalchange.bunman.jb7.FileFinder;
 
 public class FileFinderTests {
     @Test

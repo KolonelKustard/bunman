@@ -1,4 +1,4 @@
-package com.totalchange.bunman.jd7;
+package com.totalchange.bunman.jb7;
 
 import static org.junit.Assert.*;
 
@@ -9,11 +9,13 @@ import java.util.List;
 
 import org.junit.Test;
 
+import com.totalchange.bunman.jb7.IdFileAlbum;
+
 public class IdFileAlbumTests {
     @Test
     public void testIdFile() throws IOException {
         IdFileAlbum idf = new IdFileAlbum(new File(
-                "src/test/jd7/idtests/10cc   The Very Best Of 10cc/id"));
+                "src/test/jb7/idtests/10cc   The Very Best Of 10cc/id"));
         assertEquals("10cc", idf.getArtist());
         assertEquals("The Very Best Of 10cc", idf.getAlbum());
         assertEquals(1997, idf.getYear());

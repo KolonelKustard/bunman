@@ -20,7 +20,7 @@ import com.totalchange.bunman.CatalogueFactory;
 import com.totalchange.bunman.CatalogueSongListener;
 import com.totalchange.bunman.Song;
 import com.totalchange.bunman.WritableCatalogue;
-import com.totalchange.bunman.guice.Jd7;
+import com.totalchange.bunman.guice.Jb7;
 import com.totalchange.bunman.guice.Library;
 
 public class BunmanPresenterImpl implements BunmanPresenter {
@@ -41,7 +41,7 @@ public class BunmanPresenterImpl implements BunmanPresenter {
     private Set<Song> librarySongs = null;
 
     @Inject
-    public BunmanPresenterImpl(@Jd7 CatalogueFactory backupCatalogueFactory,
+    public BunmanPresenterImpl(@Jb7 CatalogueFactory backupCatalogueFactory,
             @Library CatalogueFactory libraryCatalogueFactory, BunmanView view) {
         this.backupCatalogueFactory = backupCatalogueFactory;
         this.libraryCatalogueFactory = libraryCatalogueFactory;

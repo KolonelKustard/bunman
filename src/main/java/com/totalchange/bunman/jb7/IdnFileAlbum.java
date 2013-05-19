@@ -1,4 +1,4 @@
-package com.totalchange.bunman.jd7;
+package com.totalchange.bunman.jb7;
 
 import java.io.File;
 import java.io.Serializable;
@@ -24,7 +24,7 @@ final class IdnFileAlbum implements Album, Serializable {
     IdnFileAlbum(File idnFile, CddbResult cddb) {
         this.idnFile = idnFile;
 
-        String[] split = Jd7Utils.splitArtistAlbumBits(cddb.getTitle(),
+        String[] split = Jb7Utils.splitArtistAlbumBits(cddb.getTitle(),
                 ARTIST_ALBUM_SPLITTER);
         this.artist = split[0];
         this.album = split[1];

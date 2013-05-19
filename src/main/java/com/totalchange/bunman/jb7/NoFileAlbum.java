@@ -1,4 +1,4 @@
-package com.totalchange.bunman.jd7;
+package com.totalchange.bunman.jb7;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -12,7 +12,7 @@ final class NoFileAlbum implements Album {
     private List<String> tracks;
 
     NoFileAlbum(File dir) {
-        String[] split = Jd7Utils.splitArtistAlbumBits(dir.getName(),
+        String[] split = Jb7Utils.splitArtistAlbumBits(dir.getName(),
                 SPLITTER_DIRNAME);
         artist = split[0];
         album = split[1];
@@ -21,7 +21,7 @@ final class NoFileAlbum implements Album {
         for (File file : dir.listFiles()) {
             String lower = file.getName().toLowerCase();
             if (lower.endsWith(".mp3") || lower.endsWith(".wav")) {
-                tracks.add(Jd7Utils.removeExtension(file.getName()));
+                tracks.add(Jb7Utils.removeExtension(file.getName()));
             }
         }
     }

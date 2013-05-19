@@ -1,4 +1,4 @@
-package com.totalchange.bunman.jd7;
+package com.totalchange.bunman.jb7;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -37,7 +37,7 @@ final class FileFinder {
             if (Arrays.binarySearch(ignored, file) < 0) {
                 logger.trace("Not ignoring file {}", file);
                 this.files.add(file);
-                this.fileNames.add(Jd7Utils.removeExtension(file.getName()));
+                this.fileNames.add(Jb7Utils.removeExtension(file.getName()));
             }
         }
     }

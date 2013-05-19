@@ -1,4 +1,4 @@
-package com.totalchange.bunman.jd7;
+package com.totalchange.bunman.jb7;
 
 import static org.junit.Assert.*;
 import static org.easymock.EasyMock.*;
@@ -20,9 +20,12 @@ import com.totalchange.bunman.CatalogueSongListener;
 import com.totalchange.bunman.Song;
 import com.totalchange.bunman.cddb.CddbQuerier;
 import com.totalchange.bunman.cddb.CddbResult;
+import com.totalchange.bunman.jb7.IdnFileAlbum;
+import com.totalchange.bunman.jb7.IdnFileAlbumCache;
+import com.totalchange.bunman.jb7.Jb7Catalogue;
 import com.totalchange.bunman.util.AbstractSong;
 
-public class Jd7CatalogueTests extends EasyMockSupport {
+public class Jb7CatalogueTests extends EasyMockSupport {
     private Song makeUnthanksSong(final int track, final String title) {
         return new AbstractSong() {
             public Format getFormat() {
@@ -99,8 +102,8 @@ public class Jd7CatalogueTests extends EasyMockSupport {
     public void testListAllSongs() throws IOException {
         IdnFileAlbumCache mockCache = createMock(IdnFileAlbumCache.class);
         CddbQuerier mockQuerier = createMock(CddbQuerier.class);
-        Catalogue catalogue = new Jd7Catalogue(mockCache, mockQuerier,
-                new File("./src/test/jd7"));
+        Catalogue catalogue = new Jb7Catalogue(mockCache, mockQuerier,
+                new File("./src/test/jb7"));
 
         expect(mockCache.getFileFromCache("920BA70B", "Unthanks   Last"))
                 .andReturn(null);

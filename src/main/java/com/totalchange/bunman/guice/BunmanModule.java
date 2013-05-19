@@ -7,8 +7,8 @@ import com.google.inject.Provides;
 import com.totalchange.bunman.CatalogueFactory;
 import com.totalchange.bunman.cddb.CddbQuerier;
 import com.totalchange.bunman.cddb.impl.CddbQuerierImpl;
-import com.totalchange.bunman.jd7.IdnFileAlbumCache;
-import com.totalchange.bunman.jd7.Jd7CatalogueFactory;
+import com.totalchange.bunman.jb7.IdnFileAlbumCache;
+import com.totalchange.bunman.jb7.Jb7CatalogueFactory;
 import com.totalchange.bunman.library.LibraryCatalogueFactory;
 import com.totalchange.bunman.ui.BunmanPresenter;
 import com.totalchange.bunman.ui.BunmanPresenterImpl;
@@ -30,8 +30,8 @@ public class BunmanModule extends AbstractModule {
 
     @Override
     protected void configure() {
-        bind(CatalogueFactory.class).annotatedWith(Jd7.class).to(
-                Jd7CatalogueFactory.class);
+        bind(CatalogueFactory.class).annotatedWith(Jb7.class).to(
+                Jb7CatalogueFactory.class);
         bind(CatalogueFactory.class).annotatedWith(Library.class).to(
                 LibraryCatalogueFactory.class);
 

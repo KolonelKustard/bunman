@@ -1,4 +1,4 @@
-package com.totalchange.bunman.jd7;
+package com.totalchange.bunman.jb7;
 
 import static org.junit.Assert.*;
 
@@ -8,6 +8,8 @@ import java.io.IOException;
 import org.junit.Test;
 
 import com.totalchange.bunman.cddb.CddbResult;
+import com.totalchange.bunman.jb7.IdnFileAlbum;
+import com.totalchange.bunman.jb7.IdnFileAlbumCache;
 
 public class IdnFileAlbumCacheTests {
     @Test

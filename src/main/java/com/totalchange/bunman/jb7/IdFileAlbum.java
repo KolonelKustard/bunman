@@ -1,4 +1,4 @@
-package com.totalchange.bunman.jd7;
+package com.totalchange.bunman.jb7;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -21,7 +21,7 @@ final class IdFileAlbum implements Album {
     }
 
     private void splitArtistAlbumBits(String artistAlbumBits) {
-        String[] split = Jd7Utils.splitArtistAlbumBits(artistAlbumBits,
+        String[] split = Jb7Utils.splitArtistAlbumBits(artistAlbumBits,
                 ARTIST_ALBUM_SPLITTER);
         this.artist = split[0];
         this.album = split[1];

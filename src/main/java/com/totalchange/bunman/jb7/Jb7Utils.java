@@ -1,13 +1,13 @@
-package com.totalchange.bunman.jd7;
+package com.totalchange.bunman.jb7;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-final class Jd7Utils {
+final class Jb7Utils {
     private static final Logger logger = LoggerFactory
-            .getLogger(Jd7Utils.class);
+            .getLogger(Jb7Utils.class);
 
-    private Jd7Utils() {
+    private Jb7Utils() {
         // Not to be instantiated
     }
 

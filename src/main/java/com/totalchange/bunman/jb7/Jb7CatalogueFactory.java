@@ -1,4 +1,4 @@
-package com.totalchange.bunman.jd7;
+package com.totalchange.bunman.jb7;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -10,12 +10,12 @@ import com.totalchange.bunman.Catalogue;
 import com.totalchange.bunman.CatalogueFactory;
 import com.totalchange.bunman.cddb.CddbQuerier;
 
-public class Jd7CatalogueFactory implements CatalogueFactory {
+public class Jb7CatalogueFactory implements CatalogueFactory {
     private IdnFileAlbumCache cache;
     private CddbQuerier querier;
 
     @Inject
-    public Jd7CatalogueFactory(IdnFileAlbumCache cache, CddbQuerier querier) {
+    public Jb7CatalogueFactory(IdnFileAlbumCache cache, CddbQuerier querier) {
         this.cache = cache;
         this.querier = querier;
     }
@@ -32,7 +32,7 @@ public class Jd7CatalogueFactory implements CatalogueFactory {
                 final File backupDir = new File(dir.getAbsolutePath());
                 locations.add(new Location() {
                     public String getName() {
-                        return "Brennan JD7 Backup";
+                        return "Brennan JB7 Backup";
                     }
 
                     public File getRoot() {
@@ -46,6 +46,6 @@ public class Jd7CatalogueFactory implements CatalogueFactory {
     }
 
     public Catalogue createCatalogue(File root) {
-        return new Jd7Catalogue(cache, querier, root);
+        return new Jb7Catalogue(cache, querier, root);
     }
 }
