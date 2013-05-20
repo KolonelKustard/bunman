@@ -171,7 +171,6 @@ final class Jb7Catalogue implements Catalogue {
         }
 
         // Bums
-        // TODO: sort out a way of flagging multiple possibilities to the user
         // TODO: Internationalise
         listener.warn("Couldn't find any suitable CDDB info " + "for id " + id
                 + " in directory " + file.getParent()
