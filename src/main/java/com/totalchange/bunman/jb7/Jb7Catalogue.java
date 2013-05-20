@@ -19,6 +19,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,11 +64,10 @@ final class Jb7Catalogue implements Catalogue {
                 listener.yetAnotherSong(new Jb7Song(album, trackNum, track,
                         file));
             } else {
-                // TODO: Internationalise
-                listener.warn("Couldn't find a file for " + "track '" + track
-                        + "' from album '" + album.getAlbum() + "' by artist '"
-                        + album.getArtist() + "' in directory "
-                        + dir.getAbsolutePath());
+                listener.warn(MessageFormat.format(
+                        Messages.getString("NoFileFoundError"), track,
+                        album.getAlbum(), album.getArtist(),
+                        dir.getAbsolutePath()));
             }
         }
     }
@@ -135,9 +135,9 @@ final class Jb7Catalogue implements Catalogue {
 
         if (results.size() <= 0) {
             logger.trace("No results - need to report as a problem");
-            // TODO: Internationalise
-            listener.warn("Failed to find any CDDB info for id " + id
-                    + " in directory " + file.getParent());
+            listener.warn(MessageFormat.format(
+                    Messages.getString("NoCddbForIdError"), id,
+                    file.getParent()));
             return;
         }
 
@@ -171,11 +171,9 @@ final class Jb7Catalogue implements Catalogue {
         }
 
         // Bums
-        // TODO: Internationalise
-        listener.warn("Couldn't find any suitable CDDB info " + "for id " + id
-                + " in directory " + file.getParent()
-                + " out of possible matches " + results
-                + ". Fallen back to file names.");
+        listener.warn(MessageFormat.format(
+                Messages.getString("NoCddbBasedOnResultsError"), id,
+                file.getParent(), results));
         processAlbumData(listener, new NoFileAlbum(file.getParentFile()), true,
                 file.getParentFile(), file);
     }
@@ -188,15 +186,15 @@ final class Jb7Catalogue implements Catalogue {
         try {
             id = readIdValue(file);
         } catch (IOException ioEx) {
-            // TODO: Internationalise
-            listener.warn("Failed to read an ID value from " + file
-                    + " with error " + ioEx.getMessage());
+            listener.warn(MessageFormat.format(
+                    Messages.getString("FailedReadingIDError"), file,
+                    ioEx.getMessage()));
             return;
         }
 
         if (id == null) {
-            // TODO: Internationalise
-            listener.warn(file + " does not contain an ID value");
+            listener.warn(MessageFormat.format(
+                    Messages.getString("NoIDFoundError"), file));
             return;
         }
 
