@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.0+" codebase="http://kolonelkustard.github.io/bunman/" href="bunman.jnlp">
+	<information>
+		<title>Bun Man</title>
+		<vendor>TotalChange<vendor/>
+		<homepage>http://kolonelkustard.github.io/bunman/<homepage/>
+		<description kind="one-line">Synchronises a Brennan JB7 backup to another library of MP3 files</description>
+	</information>
+	<security>
+		<all-permissions/>
+	</security>
+	<resources>
+		<j2se version="1.6+" />
+		    
+    <property name="jnlp.packEnabled" value="true" />
+    <jar href="lib/bunman-1.0.0-SNAPSHOT.jar" main="true"/>
+    <jar href="lib/slf4j-api-1.7.5.jar"/>
+    <jar href="lib/slf4j-jdk14-1.7.5.jar"/>
+    <jar href="lib/guice-3.0.jar"/>
+    <jar href="lib/javax.inject-1.jar"/>
+    <jar href="lib/aopalliance-1.0.jar"/>
+    <jar href="lib/commons-pool-1.6.jar"/>
+    <jar href="lib/jaudiotagger-2.0.3.jar"/>
+    <jar href="lib/jdbm-2.0.1.jar"/>
+
+	</resources>
+	<application-desc main-class="com.totalchange.bunman.Bunman" />
+</jnlp>
