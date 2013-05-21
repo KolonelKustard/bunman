@@ -138,6 +138,8 @@ final class Jb7Catalogue implements Catalogue {
             listener.warn(MessageFormat.format(
                     Messages.getString("NoCddbForIdError"), id,
                     file.getParent()));
+            processAlbumData(listener, new NoFileAlbum(file.getParentFile()),
+                    true, file.getParentFile(), file);
             return;
         }
 
