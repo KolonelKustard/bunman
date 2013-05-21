@@ -164,9 +164,9 @@ public class CDDB
 
         // send a hello request
         StringBuilder req = new StringBuilder("cddb hello ");
-        req.append(username).append(" ");
+        req.append("\"").append(username).append("\" ");
         req.append(localhost).append(" ");
-        req.append(clientName).append(" ");
+        req.append("\"").append(clientName).append("\" ");
         req.append(clientVersion);
 
         rsp = request(req.toString());
