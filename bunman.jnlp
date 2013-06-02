@@ -4,7 +4,7 @@
 		<title>Bun Man</title>
 		<vendor>TotalChange<vendor/>
 		<homepage>http://kolonelkustard.github.io/bunman/<homepage/>
-		<description kind="one-line">Synchronises a Brennan JB7 backup to another library of MP3 files</description>
+		<description kind="one-line">Brennan JB7 Backup to Library Synchroniser</description>
 	</information>
 	<security>
 		<all-permissions/>
